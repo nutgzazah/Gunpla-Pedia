@@ -12,10 +12,6 @@ import FormProduct from './components/FormProduct';
 import FormEditProduct from './components/FormEditProduct';
 
 
-//pages
-import Register from "./components/pages/auth/Register";
-import Login from "./components/pages/auth/Login";
-
 //admin
 import HomePageAdmin from './components/pages/admin/HomePageAdmin';
 import ManageUser from './components/pages/admin/ManageUser';
@@ -29,13 +25,15 @@ import UserRoute from './routes/UserRoute';
 
 //function
 import { currentUser } from "./functions/auth"
-
 import { useDispatch } from 'react-redux';
 import { login } from './store/userSlice';
+
+//pages
+import Register from "./components/pages/auth/Register";
+import Login from "./components/pages/auth/Login";
 import Notfound404 from './components/pages/Notfound404';
-
 import ResponsiveAppBar from './layout/ResponsiveAppBar';
-
+import Home from './components/pages/Home';
 
 function App() {
   // javascript
@@ -62,7 +60,7 @@ function App() {
         <Route path='*' element={<Notfound404/>} />
         <Route path='/' element={
           <>
-        <ResponsiveAppBar/> <h1>Homepage</h1>
+        <ResponsiveAppBar/> <Home/>
           </>
         } />
         <Route path='/register' element={<Register/>} />
