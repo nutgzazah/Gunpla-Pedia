@@ -27,21 +27,6 @@ yarn-error.log*
 *.swn
 .DS_Store
 
-# Compiled files
-/build
-/dist
-/out
-/public
-
-# Miscellaneous
-Thumbs.db
-.cache/
-.history
-
-# IDE-specific files (e.g., WebStorm, IntelliJ)
-*.iml
-*.ipr
-*.iws
 
 # Mac-specific files
 .DS_Store
