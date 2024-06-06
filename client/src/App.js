@@ -28,6 +28,10 @@ import { currentUser } from "./functions/auth"
 import { useDispatch } from 'react-redux';
 import { login } from './store/userSlice';
 
+//comp
+import Navbar from '../src/components/comp/header/Navbar'
+import Footer from '../src/components/comp/bottom/footer'
+
 //pages
 import Register from "./components/pages/auth/Register";
 import Login from "./components/pages/auth/Login";
@@ -56,7 +60,8 @@ function App() {
     <>
       <CssBaseline />
       { /* Publish */}
-    <Routes>
+    <Navbar/>
+    <Routes >
         <Route path='*' element={<Notfound404/>} />
         <Route path='/' element={
           <>
@@ -103,6 +108,7 @@ function App() {
         } />
 
     </Routes>
+    <Footer />
 
     </>
 

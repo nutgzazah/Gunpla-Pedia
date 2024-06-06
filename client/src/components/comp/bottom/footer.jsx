@@ -4,7 +4,7 @@ import { FaInstagram } from "react-icons/fa";
 import { FaFacebookSquare } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
-import LOGO from '../../assets/LOGO.png'
+import LOGO from '../../../assets/LOGO.png'
 
 const Footer = () => {
   return (
