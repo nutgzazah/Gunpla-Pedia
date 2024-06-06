@@ -1,0 +1,110 @@
+.main-recommend {
+    width: 100%;
+    height: 840px;
+    margin: 10px auto;
+    position: relative;
+    padding: 5px 0;
+}
+
+.main-recommend header{
+    width: 98%;
+    height: 60px;
+    margin: 0 auto;
+    align-items: center;
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+    border-bottom: 2px solid #ddd;
+}
+
+.main-recommend header p span {
+    font-size: 20px;
+    margin: 0 5px;
+    cursor: pointer;
+    color: #555;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    line-height: 19px;
+    text-align: center;
+    border-radius: 3px;
+}
+
+
+.main-recommend header p span:hover{
+    color: red;
+}
+
+.main-recommend section {
+    width: 98%;
+    height: 600px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+}
+
+.main-recommend section::-webkit-scrollbar{
+    display: none;
+}
+
+.main-recommend section .products{
+    min-width: 24%;
+    height: 90%;
+    background: whitesmoke;
+    margin: 0 20px 0 0;
+    border-radius: 20px;
+    position: relative;
+    left: 0;
+    transition: 0.5s;
+}
+
+.main-recommend section .products:hover {
+    transform: scale(1.03);
+}
+
+.products picture{
+    width: 100%;
+    height: 70%;
+    padding: 20px;
+    display: flex;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.products picture img{
+    width: 100%;
+}
+
+.recom-details, .recom-button{
+    width: 90%;
+    margin: auto;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    font-size: 20px;
+    color: #444;
+}
+
+.recom-button a{
+    padding: 6px 14px;
+    height: 40px;
+    width: 190px;
+    font-size: 13px;
+    margin: 5px 0 0 20px;
+    display: inline-flex;
+    background: #fb2f38;
+    border-radius: 10px;
+    justify-content: center; 
+    align-items: center; /* Center vertically */
+    color: white;
+}
+
+p.star{
+    margin: 5px auto;
+    width: 65%;
+    font-size: 20px;
+    color: #FED000;
+}
