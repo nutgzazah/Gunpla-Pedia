@@ -1,22 +1,99 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import './Navbar.css'
-import { BiColor } from 'react-icons/bi'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import './Navbar.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../../../store/userSlice';
+import { useNavigate } from 'react-router-dom';
+
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Menu from '@mui/material/Menu';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import Avatar from '@mui/material/Avatar';
+import MenuItem from '@mui/material/MenuItem';
 
 const Navbar = () => {
+  const { user } = useSelector((state) => ({ ...state }));
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    dispatch(logout());
+    handleCloseUserMenu()
+    navigate('/')
+  };
+
+  const [anchorElUser, setAnchorElUser] = useState(null);
+
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+};
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  const settings = [
+    {
+        title: 'Profile', icon: '', to: '/account'
+    },
+    {
+        title: 'Logout', icon: '', to: '#'
+    }
+]
+
   return (
-  <div class="heroes">
+    <div class="heroes">
       <nav>
         <h2 class="logoes">Gunpla <span class="red-text">Pedia</span></h2>
         <ul>
           <li><Link to="/">Home</Link></li>
           <li><Link to="/gunpla">Gunpla</Link></li>
-          <li><Link to="/techniques">Techniques</Link></li>        
+          <li><Link to="/techniques">Techniques</Link></li>
         </ul>
-        <button type="button" class="log-nav"><Link to="/login">Login</Link></button>
+        {user.user.length === 0 ? (
+          <button type="button" class="log-nav"><Link to="/login">Login</Link></button>
+        ) : (
+          <Box sx={{ flexGrow: 0 }}>
+                    <Tooltip title="Open settings">
+                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                            <Avatar alt="Remy Sharp" src="https://obs.line-scdn.net/0hSo0b4ow9DEANGx4MvxpzFzVNADE-fRZJLy9HcSgYB3EgN0wVZipfIy8fW2wpIksVLXgUciEcWnZzKEoXMA/w1200" />
+                        </IconButton>
+                    </Tooltip>
+                    <Menu
+                        sx={{ mt: '45px' }}
+                        id="menu-appbar"
+                        anchorEl={anchorElUser}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        open={Boolean(anchorElUser)}
+                        onClose={handleCloseUserMenu}
+                    >
+                        {settings.map((setting, index) => (
+                            <MenuItem key={index} onClick={setting.title=="Logout"
+                            ? handleLogout 
+                            : handleCloseUserMenu
+                            }
+                        >
+                                <Link to={setting.to} style={{ textDecoration: 'none' }}>
+                                    <Typography textAlign="center">{setting.title}</Typography>
+                                </Link>
+                            </MenuItem>
+                        ))}
+                    </Menu>
+                </Box>
+        )}
       </nav>
-  </div>
-  )
+    </div>
+  );
 }
 
-export default Navbar
+export default Navbar;

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -7,6 +7,7 @@ import { login } from '../../../functions/auth';
 import { MdEmail } from 'react-icons/md';
 import { IoIosLock } from 'react-icons/io';
 import { Link } from 'react-router-dom';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import './Login.css'; // Assuming you copied your friend's CSS file
 
 const defaultTheme = createTheme();
@@ -14,6 +15,7 @@ const defaultTheme = createTheme();
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -49,6 +51,10 @@ function Login() {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <div className="login">
@@ -60,8 +66,15 @@ function Login() {
               <i><MdEmail /></i>
             </div>
             <div className="input-box">
-              <input type="password" name="password" placeholder="Password" required />
-              <i><IoIosLock /></i>
+              <input
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                placeholder="Password"
+                required
+              />
+              <i onClick={togglePasswordVisibility} className="password-toggle-icon">
+              {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+              </i>
             </div>
             <div className="remember-forget">
               <label>
