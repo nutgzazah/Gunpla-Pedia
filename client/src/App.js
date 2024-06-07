@@ -37,7 +37,12 @@ import Register from "./components/pages/auth/Register";
 import Login from "./components/pages/auth/Login";
 import Notfound404 from './components/pages/Notfound404';
 import Home from './components/pages/Home';
-import Gunpla from './components/pages/Gunpla';
+import Gunpla from './components/pages/gunpla/Gunpla';
+import Collection from './components/pages/collection/Collection'
+import Account from './components/pages/user/Account'
+import Techniques from './components/pages/techniques/Techniques'
+import Blogtech from './components/pages/techniques/blogtech/Blogtech'
+import Details from './components/pages/details/Details'
 
 function App() {
   // javascript
@@ -71,6 +76,7 @@ function App() {
         <Route path="/gunpla" element={<Gunpla />} />
         <Route path='/register' element={<Register/>} />
         <Route path='/login' element={<Login/>} />
+        <Route path='/techniques' element={<Techniques/>}/>
 
 
         { /* User */}
@@ -79,6 +85,31 @@ function App() {
           <HomePageUser/>
         </UserRoute>
         } />
+
+        <Route path='/collection' element={
+        <UserRoute>
+          <Collection/>
+        </UserRoute>
+        } />
+
+        <Route path='/account' element={
+        <UserRoute>
+          <Account/>
+        </UserRoute>
+        } />
+
+        <Route path='/gunplaID/details' element={
+        <UserRoute>
+          <Details/>
+        </UserRoute>
+        } />
+
+        <Route path='/blogID/blogtech' element={
+        <UserRoute>
+          <Blogtech/>
+        </UserRoute>
+        } />
+
       
 
 
