@@ -29,6 +29,20 @@ const productSchema = mongoose.Schema({
         type: String,
         default: ''
     },
+    sticker: {
+        foil: {
+            type: Boolean,
+            default: false
+        },
+        etching: {
+            type: Boolean,
+            default: false
+        },
+        water: {
+            type: Boolean,
+            default: false
+        }
+    },
     file: {
         type: String,
         default: 'noimage.jpg'
