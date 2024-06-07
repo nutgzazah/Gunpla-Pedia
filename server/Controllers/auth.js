@@ -1,4 +1,5 @@
 const User = require('../Models/Users')
+const Collection = require('../Models/Collection');
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
@@ -21,6 +22,18 @@ exports.register = async(req,res)=>{
         user.password = await bcrypt.hash(password,salt)
         // 3.Save
         await user.save()
+
+        // Create a collection for the user
+        const collection = new Collection({
+            user: user._id // Assign the ID of the user to the user field of the collection
+        });
+        await collection.save();
+
+
+        // Assign the collection to the user
+        user.userCollection = collection._id;
+        await user.save();
+
         res.send('Register Success!!')
         
     }catch(err){
