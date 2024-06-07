@@ -10,7 +10,6 @@ const UserRoute = ({children}) => {
 
   return user && user.user.token 
   ? <>
-  <ResponsiveAppBar/>
   { children }
   </>
    : <h1> NO LOGIN </h1>

@@ -43,6 +43,13 @@ const Navbar = () => {
     }
 ]
 
+if (user.user && user.user.role === 'admin') {
+  settings.unshift({
+    title: 'Dashboard',
+    to: '/admin/index'
+  });
+}
+
   return (
     <div class="heroes">
       <nav>
