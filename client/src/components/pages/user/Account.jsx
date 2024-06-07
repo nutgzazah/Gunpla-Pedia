@@ -1,7 +1,7 @@
 import React from 'react'
-import Acside from '../../components/acside/Acside'
+import Acside from '../../comp/acside/Acside'
 import './Account.css'
-import LOGO from '../../assets/LOGO.png'
+import LOGO from '../../../assets/LOGO.png'
 import { IoHeartCircleOutline } from "react-icons/io5";
 
 const Account = () => {
