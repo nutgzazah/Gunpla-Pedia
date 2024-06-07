@@ -1,12 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 
 //Layout
-import HeaderBar from "./layout/HeaderBar";
-import { CssBaseline, Box } from "@mui/material";
-import SideBar from "./layout/SideBar";
+import { CssBaseline } from "@mui/material";
 
 import FormProduct from './components/FormProduct';
 import FormEditProduct from './components/FormEditProduct';
@@ -98,13 +95,13 @@ function App() {
         </UserRoute>
         } />
 
-        <Route path='/gunplaID/details' element={
+        <Route path='/gunpla/gunplaID' element={
         <UserRoute>
           <Details/>
         </UserRoute>
         } />
 
-        <Route path='/blogID/blogtech' element={
+        <Route path='/techniques/blogID' element={
         <UserRoute>
           <Blogtech/>
         </UserRoute>

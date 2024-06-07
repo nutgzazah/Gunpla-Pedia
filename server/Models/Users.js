@@ -9,6 +9,10 @@ const userSchema = mongoose.Schema({
         type:String,
         default:'user',
     },
+    userCollection: { 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'collections'
+    }
 },{ timestamps: true })
 
 module.exports = mongoose.model('users',userSchema)
