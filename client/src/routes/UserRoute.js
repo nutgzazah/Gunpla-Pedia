@@ -1,8 +1,10 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import ResponsiveAppBar from '../layout/ResponsiveAppBar'
+import { useNavigate } from 'react-router-dom';
 
 const UserRoute = ({children}) => {
+  const navigate = useNavigate();
   const { user } = useSelector((state)=>({...state}))
   console.log('UserRoute',user)
     //check if user login yet
@@ -12,7 +14,7 @@ const UserRoute = ({children}) => {
   ? <>
   { children }
   </>
-   : <h1> NO LOGIN </h1>
+   : <h1>No Login</h1>
 }
 
 export default UserRoute

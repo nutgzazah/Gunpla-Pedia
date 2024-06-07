@@ -47,7 +47,7 @@ function Login() {
     if (role === 'admin') {
       navigate('/admin/index');
     } else {
-      navigate('/user/index');
+      navigate('/gunpla');
     }
   };
 

@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
-import './Newslide.css'
+import React, { useState, useEffect } from 'react';
+import './Newslide.css';
 
 const Newslide = () => {
-  const [slideIndex, setSlideIndex] = useState(0);
+  const [slideIndex, setSlideIndex] = useState(1); 
+
+  useEffect(() => {
+    showSlides(slideIndex);
+  }, [slideIndex]);
 
   const plusSlides = (n) => {
     showSlides(slideIndex + n);
@@ -55,8 +59,12 @@ const Newslide = () => {
 
         <div className="mySlides fade">
           <img src="https://da.lnwfile.com/_/da/_raw/np/53/by.jpg" style={{ width: '100%' }} alt="Slide 2" />
-          
         </div>
+
+        <div className="mySlides fade">
+          <img src="https://scontent.fbkk29-1.fna.fbcdn.net/v/t39.30808-6/355104437_716387297165889_3051305454488190266_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_ohc=Ipnz4PuMhocQ7kNvgGV5jX2&_nc_ht=scontent.fbkk29-1.fna&oh=00_AYAR-WXyzHHo_vOvzaKIGHKZrHiTJ5ZjQV6xI9IcoaSQPg&oe=66684F16" style={{ width: '100%' }} alt="Slide 3" />
+        </div>
+        
 
         <a className="prev" onClick={() => plusSlides(-1)}>
           &#10094;

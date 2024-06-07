@@ -36,8 +36,8 @@ import Footer from '../src/components/comp/bottom/footer'
 import Register from "./components/pages/auth/Register";
 import Login from "./components/pages/auth/Login";
 import Notfound404 from './components/pages/Notfound404';
-import ResponsiveAppBar from './layout/ResponsiveAppBar';
 import Home from './components/pages/Home';
+import Gunpla from './components/pages/Gunpla';
 
 function App() {
   // javascript
@@ -68,6 +68,7 @@ function App() {
         <Home/>
           </>
         } />
+        <Route path="/gunpla" element={<Gunpla />} />
         <Route path='/register' element={<Register/>} />
         <Route path='/login' element={<Login/>} />
 
