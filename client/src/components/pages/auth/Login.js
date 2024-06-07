@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login as loginRedux } from '../../../store/userSlice';
 import { login } from '../../../functions/auth';
-import { MdEmail } from 'react-icons/md';
+import { FaUser } from "react-icons/fa";
 import { IoIosLock } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
@@ -63,7 +63,7 @@ function Login() {
             <h1>Login</h1>
             <div className="input-box">
               <input type="text" name="name" placeholder="Username" required />
-              <i><MdEmail /></i>
+              <i><FaUser /></i>
             </div>
             <div className="input-box">
               <input
@@ -83,7 +83,7 @@ function Login() {
             </div>
             <button type="submit" className="btn">Login</button>
             <div className="register-link">
-              <p>Don't have an account? <Link to="/signup">Register</Link></p>
+              <p>Don't have an account? <Link to="/register"><a href="#">Register</a></Link></p>
             </div>
           </form>
         </div>
