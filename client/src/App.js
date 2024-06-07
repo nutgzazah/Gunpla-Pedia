@@ -65,7 +65,7 @@ function App() {
         <Route path='*' element={<Notfound404/>} />
         <Route path='/' element={
           <>
-        <ResponsiveAppBar/> <Home/>
+        <Home/>
           </>
         } />
         <Route path='/register' element={<Register/>} />

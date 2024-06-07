@@ -1,138 +1,94 @@
-import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
+import { IoIosLock } from "react-icons/io";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-//funtion
+import { FaUser } from "react-icons/fa";
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { useNavigate } from 'react-router-dom';
+//function
 import { register } from '../../../functions/auth';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+function Register() {
+  const [showPassword, setShowPassword] = useState(false);
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
-// TODO remove, this demo shouldn't need to reset the theme.
+  const navigate = useNavigate();
 
-const defaultTheme = createTheme();
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
-export default function Register() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    const formrgt={
-        name:data.get("name"),
-        password:data.get("password"),
+    const formData = {
+      name: data.get("name"),
+      password: data.get("password"),
+      passwordConfirmation: data.get("passwordConfirmation"),
+    };
+
+    // You may want to add validation here to check if passwords match
+    if (formData.password !== formData.passwordConfirmation) {
+      alert("Passwords do not match");
+      return;
     }
-    register(formrgt)
-    .then(res=>{
-        console.log(res)
-        alert(res.data)
-    }).catch(err=>console.log(err))
+
+    register(formData)
+      .then(res => {
+        console.log(res);
+        alert(res.data);
+
+        navigate('/login')
+      })
+      .catch(err => console.log(err));
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" sx={{ height: '100vh' }}>
-        <CssBaseline />
-        <Grid
-          item
-          xs={false}
-          sm={4}
-          md={7}
-          sx={{
-            // backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
-            backgroundImage: 'url(/assets/wallpaper.png)',
-            backgroundRepeat: 'no-repeat',
-            backgroundColor: (t) =>
-              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-          <Box
-            sx={{
-              my: 8,
-              mx: 4,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}
-          >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Sign in
-            </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="name"
-                label="Username"
-                name="name"
-                autoFocus
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
+    <ThemeProvider theme={createTheme()}>
+      <div className="login">
+        <div className="wrapper">
+          <form onSubmit={handleSubmit}>
+            <h1>Register</h1>
+            <div className="input-box">
+              <input type="text" name="name" placeholder="Username" required />
+              <i><FaUser /></i>
+            </div>
+            <div className="input-box">
+              <input
+                type={showPassword ? 'text' : 'password'}
                 name="password"
-                label="Password"
+                placeholder="Password"
+                required
+              />
+              <i onClick={togglePasswordVisibility} className="password-toggle-icon">
+                {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+              </i>
+            </div>
+            <div className="input-box">
+              <input
                 type="password"
-                id="password"
-                autoComplete="current-password"
+                name="passwordConfirmation"
+                placeholder="Confirm Password"
+                value={passwordConfirmation}
+                onChange={(e) => setPasswordConfirmation(e.target.value)}
+                required
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Sign In
-              </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="#" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
-              <Copyright sx={{ mt: 5 }} />
-            </Box>
-          </Box>
-        </Grid>
-      </Grid>
+              <i><IoIosLock /></i>
+            </div>
+            <div class="remember-forget">
+              <label><input required type="checkbox" />  I accept all terms & conditions</label>
+            </div>
+            <button type="submit" className="btn">Register</button>
+            <div className="register-link">
+              <p>Already have an account? <Link to="/login">Login</Link></p>
+            </div>
+          </form>
+        </div>
+      </div>
     </ThemeProvider>
   );
 }
+
+export default Register;
