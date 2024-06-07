@@ -16,19 +16,19 @@ import MenuItem from '@mui/material/MenuItem';
 const Navbar = () => {
   const { user } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(logout());
-    handleCloseUserMenu()
-    navigate('/')
+    handleCloseUserMenu();
+    navigate('/');
   };
 
   const [anchorElUser, setAnchorElUser] = useState(null);
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
-};
+  };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -36,67 +36,74 @@ const Navbar = () => {
 
   const settings = [
     {
-        title: 'Profile', icon: '', to: '/account'
+      title: 'Profile',
+      icon: '',
+      to: '/account',
+      onClick: () => navigate('/account')
     },
     {
-        title: 'Logout', icon: '', to: '#'
+      title: 'Logout',
+      icon: '',
+      to: '#',
+      onClick: handleLogout
     }
-]
+  ];
 
-if (user.user && user.user.role === 'admin') {
-  settings.unshift({
-    title: 'Dashboard',
-    to: '/admin/index'
-  });
-}
+  if (user.user && user.user.role === 'admin') {
+    settings.unshift({
+      title: 'Dashboard',
+      to: '/admin/index',
+      onClick: () => navigate('/admin/index')
+    });
+  }
 
   return (
-    <div class="heroes">
+    <div className="heroes">
       <nav>
-        <h2 class="logoes">Gunpla <span class="red-text">Pedia</span></h2>
+        <h2 className="logoes">Gunpla <span className="red-text">Pedia</span></h2>
         <ul>
           <li><Link to="/">Home</Link></li>
           <li><Link to="/gunpla">Gunpla</Link></li>
           <li><Link to="/techniques">Techniques</Link></li>
         </ul>
         {user.user.length === 0 ? (
-          <button type="button" class="log-nav"><Link to="/login">Login</Link></button>
+          <Link to="/login"><button type="button" className="log-nav">Login</button></Link>
         ) : (
           <Box sx={{ flexGrow: 0 }}>
-                    <Tooltip title="Open settings">
-                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                            <Avatar alt="Remy Sharp" src="https://obs.line-scdn.net/0hSo0b4ow9DEANGx4MvxpzFzVNADE-fRZJLy9HcSgYB3EgN0wVZipfIy8fW2wpIksVLXgUciEcWnZzKEoXMA/w1200" />
-                        </IconButton>
-                    </Tooltip>
-                    <Menu
-                        sx={{ mt: '45px' }}
-                        id="menu-appbar"
-                        anchorEl={anchorElUser}
-                        anchorOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                        }}
-                        keepMounted
-                        transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                        }}
-                        open={Boolean(anchorElUser)}
-                        onClose={handleCloseUserMenu}
-                    >
-                        {settings.map((setting, index) => (
-                            <MenuItem key={index} onClick={setting.title=="Logout"
-                            ? handleLogout 
-                            : handleCloseUserMenu
-                            }
-                        >
-                                <Link to={setting.to} style={{ textDecoration: 'none' }}>
-                                    <Typography textAlign="center">{setting.title}</Typography>
-                                </Link>
-                            </MenuItem>
-                        ))}
-                    </Menu>
-                </Box>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="Remy Sharp" src="https://obs.line-scdn.net/0hSo0b4ow9DEANGx4MvxpzFzVNADE-fRZJLy9HcSgYB3EgN0wVZipfIy8fW2wpIksVLXgUciEcWnZzKEoXMA/w1200" />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {settings.map((setting, index) => (
+                <MenuItem
+                  key={index}
+                  onClick={() => {
+                    setting.onClick();
+                    handleCloseUserMenu();
+                  }}
+                >
+                  <Typography textAlign="center">{setting.title}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
         )}
       </nav>
     </div>
