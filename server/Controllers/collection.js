@@ -1,10 +1,13 @@
 const Collection = require('../Models/Collection');
+const Product = require('../Models/Product');
 const User = require('../Models/Users');
 
 // Method to add a product to a user's collection
 exports.addToCollection = async (req, res) => {
-    const { userId, productId } = req.body;
+    const { productId } = req.body;
     try {
+
+        const userId = req.user._id;
         // Check if the user exists
         const user = await User.findById(userId);
         if (!user) {
@@ -17,14 +20,18 @@ exports.addToCollection = async (req, res) => {
             return res.status(404).json({ error: "Product not found" });
         }
 
-        // Check if the product is already in the collection
-        if (user.collection.includes(productId)) {
+        let collection = await Collection.findOne({ user: userId });
+        if (!collection) {
+            collection = new Collection({ user: userId, products: [] });
+        }
+
+        if (collection.products.includes(productId)) {
             return res.status(400).json({ error: "Product already in collection" });
         }
 
-        // Add the product to the user's collection
-        user.collection.push(productId);
-        await user.save();
+        collection.products.push(productId);
+        await collection.save();
+
 
         res.json({ message: "Product added to collection successfully" });
     } catch (err) {
@@ -35,22 +42,20 @@ exports.addToCollection = async (req, res) => {
 
 // Method to remove a product from a user's collection
 exports.removeFromCollection = async (req, res) => {
-    const { userId, productId } = req.body;
+    const { productId } = req.body;
     try {
-        // Check if the user exists
-        const user = await User.findById(userId);
-        if (!user) {
-            return res.status(404).json({ error: "User not found" });
+        const userId = req.user._id;
+        const collection = await Collection.findOne({ user: userId });
+        if (!collection) {
+            return res.status(404).json({ error: "Collection not found" });
         }
 
-        // Check if the product exists in the user's collection
-        if (!user.collection.includes(productId)) {
+        if (!collection.products.includes(productId)) {
             return res.status(400).json({ error: "Product not found in user's collection" });
         }
 
-        // Remove the product from the user's collection
-        user.collection = user.collection.filter(id => id.toString() !== productId.toString());
-        await user.save();
+        collection.products = collection.products.filter(id => id.toString() !== productId.toString());
+        await collection.save();
 
         res.json({ message: "Product removed from collection successfully" });
     } catch (err) {
@@ -61,17 +66,17 @@ exports.removeFromCollection = async (req, res) => {
 
 // Method to get all products in a user's collection
 exports.getCollection = async (req, res) => {
-    const userId = req.params.userId;
+    const userId = req.user._id;
     try {
-        // Check if the user exists
-        const user = await User.findById(userId);
-        if (!user) {
-            return res.status(404).json({ error: "User not found" });
+        const user = await User.findById(userId).populate({
+            path: 'userCollection',
+            populate: { path: 'products' }
+        });
+        if (!user || !user.userCollection) {
+            return res.status(404).json({ error: "Collection not found" });
         }
 
-        // Fetch all products in the user's collection
-        const collection = await Product.find({ _id: { $in: user.collection } });
-        res.json(collection);
+        res.json(user.userCollection.products);
     } catch (err) {
         console.error(err);
         res.status(500).send('Server Error');
