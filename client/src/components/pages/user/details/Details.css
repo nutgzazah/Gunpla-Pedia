@@ -82,7 +82,22 @@
 
 .purchase-info{
     margin: 1.5rem 0;
+    display: flex;
 }
 
+.testgod{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
 
+.testgod > p{
+    margin-left: 6px;
+    color: rgb(252, 186, 3);
+    font-weight: 800;
+}
 
+.testgod2{
+    margin-left: 10px;
+    font-weight: 800;
+}
