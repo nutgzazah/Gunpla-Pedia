@@ -12,6 +12,7 @@ const GunplaDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+
   const tableStyle = {
     width: '100%',
     borderCollapse: 'collapse',
@@ -91,21 +92,29 @@ const GunplaDetails = () => {
     return format(new Date(dateString), 'dd MMMM yyyy');
   };
 
+  const renderRating = () => {
+    if (product.totalrating === 0) {
+      return "No Rating";
+    } else {
+      return <h4>{product.totalrating}</h4>;
+    }
+  };
+
   return (
       <div className='small-containers single-product'>
         <div className='pic-row'>
-        {product.file && (
-                <div>
-                    <img 
-                        src={`${process.env.REACT_APP_API}/uploads/${product.file}`} 
-                        alt={product.name} 
-                        style={{ width: '300px', height: 'auto' }} 
-                    />
-                </div>
-            )}
+          {product.file && (
+            <div>
+                <img 
+                    src={`${process.env.REACT_APP_API}/uploads/${product.file}`} 
+                    alt={product.name} 
+                    tyle={{ width: '300px', height: 'auto' }} 
+                />
+            </div>
+          )}
           <div className='col-2'>
             <h1>{product.name}</h1>
-            <h4>{product.totalrating}</h4>
+            <h4>{renderRating()}</h4>
             <h3>Gunpla Details</h3>
             <p>{product.detail}</p>
 
