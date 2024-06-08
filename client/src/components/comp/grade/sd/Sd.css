@@ -147,8 +147,8 @@ div.bodygrade{
 }
 
 .home-img img{
-    max-width: 450px;
-    margin-left: 150px;
+    width: 500px;
+    margin-left: 300px;
     opacity: 0;
     animation: zoomsIn 1s ease forwards, floatsImage 4s ease-in-out infinite;
     animation-delay: 2s, 3s;
