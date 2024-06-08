@@ -24,3 +24,27 @@ export const rateProduct = async (ratingData, token) => {
       }
     });
   };
+
+export const addToCollection = async (productId, token) => {
+  return await axios.post(
+    `${process.env.REACT_APP_API}/collection/add`,
+    { productId },
+    {
+      headers: {
+        authtoken: token
+      }
+    }
+  );
+};
+
+export const removeFromCollection = async (productId, token) => {
+    return await axios.post(
+      `${process.env.REACT_APP_API}/collection/remove`,
+      { productId },
+      {
+        headers: {
+          authtoken: token
+        }
+      }
+    );
+  };

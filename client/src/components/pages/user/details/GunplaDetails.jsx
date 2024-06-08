@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios'
 import { useParams } from 'react-router-dom';
 import './Details.css';
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import { MdNotInterested } from "react-icons/md";
-import { read, rateProduct } from '../../../../functions/product';
+import { read, rateProduct, addToCollection, removeFromCollection } from '../../../../functions/product';
 import { format } from 'date-fns';
-import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
-import Typography from '@mui/material/Typography';
 import { useSelector } from 'react-redux';  // Import useSelector to get auth details
 
 const GunplaDetails = () => {
@@ -16,8 +15,8 @@ const GunplaDetails = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
   const { user } = useSelector((state) => ({ ...state }));  // Get logged-in user details from Redux store
+  const [inCollection, setInCollection] = useState(false); // State to track if the product is in user's collection
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -28,9 +27,17 @@ const GunplaDetails = () => {
 
         // Check if the user has already rated this product
         if (response.data.ratings) {
+          // const userToken = user.user.token
+          //find user by token to userid and the const userID
           const userRating = response.data.ratings.find(r => r.postedby._id === user.user._id);
+          console.log("userRating:",userRating)
+          console.log("user.user._id:",user.user._id)
+          console.log("user.user.token:",user.user.token)
           if (userRating) {
             setValue(userRating.star);
+          }else {
+            // Reset the value state if the current user hasn't rated the product
+            setValue(null);
           }
         }
 
@@ -42,7 +49,46 @@ const GunplaDetails = () => {
     };
 
     fetchProduct();
-  }, [id]);
+  }, [id, user.user]);
+
+  useEffect(() => {
+    const checkCollection = async () => {
+      try {
+        if (!user.user) return; // Ensure user is logged in
+        const response = await axios.get(`${process.env.REACT_APP_API}/collection`, {
+          headers: {
+            authtoken: user.user.token
+          }
+        });
+        // Check if the product is in the user's collection
+        const isInCollection = response.data.some(item => item._id === id);
+        setInCollection(isInCollection);
+      } catch (err) {
+        console.error('Error checking collection:', err);
+      }
+    };
+
+    checkCollection();
+  }, [id, user.user]);
+  
+
+  const handleAddToCollection = async () => {
+    try {
+      if (!inCollection) {
+        await addToCollection(id, user.user.token);
+        // Optionally, you can show a success message or update UI
+        console.log('Product added to collection successfully');
+        setInCollection(true); // Update state to reflect the change
+      } else {
+        await removeFromCollection(id, user.user.token); // Call removeFromCollection function if the product is already in the collection
+        // Optionally, you can show a success message or update UI
+        console.log('Product removed from collection successfully');
+        setInCollection(false); // Update state to reflect the change
+      }
+    } catch (err) {
+      console.error('Error handling collection action:', err);
+    }
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -62,14 +108,18 @@ const GunplaDetails = () => {
   };
 
   const renderRating = () => {
-    if (product.totalrating === 0) {
+    const totalRatings = product.ratings ? product.ratings.length : 0;
+    if (totalRatings === 0) {
       return "No Rating";
     } else {
-      return <p>{product.totalrating + " Star"}</p>;
+      return <p>{`${product.totalrating} Star `}<span style={{ color: 'black', fontSize: '12px', fontWeight: '500' }}>({totalRatings} rating{totalRatings > 1 ? 's' : ''})</span></p>;
     }
   };
 
   const handleRatingChange = async (event, newValue) => {
+    if (newValue === null) {
+      return;
+    }
     setValue(newValue);
 
     try {
@@ -158,8 +208,9 @@ const GunplaDetails = () => {
                 color: '#fff',
                 background: '#256eff'
               }}
+              onClick={handleAddToCollection}
             >
-              Add to Collection
+              {inCollection ? 'Remove from Collection' : 'Add to Collection'}
             </button>
             <div className='testgod2'>
               <p>Rate This Gunpla</p>
