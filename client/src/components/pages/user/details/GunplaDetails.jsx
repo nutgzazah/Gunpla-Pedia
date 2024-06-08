@@ -5,8 +5,12 @@ import { IoIosCheckmarkCircle } from "react-icons/io";
 import { MdNotInterested } from "react-icons/md";
 import { read } from '../../../../functions/product';
 import { format } from 'date-fns';
+import Box from '@mui/material/Box';
+import Rating from '@mui/material/Rating';
+import Typography from '@mui/material/Typography';
 
 const GunplaDetails = () => {
+  const [value, setValue] = React.useState(null)
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -94,9 +98,10 @@ const GunplaDetails = () => {
 
   const renderRating = () => {
     if (product.totalrating === 0) {
-      return "No Rating";
+      return " No Rating";
     } else {
-      return <h4>{product.totalrating}</h4>;
+      return <h4>
+        {""+product.totalrating}</h4>;
     }
   };
 
@@ -106,15 +111,25 @@ const GunplaDetails = () => {
           {product.file && (
             <div>
                 <img 
-                    src={`${process.env.REACT_APP_API}/uploads/${product.file}`} 
+                    src={`${process.env.REACT_APP_API}/uploads/${product.file}`}
                     alt={product.name} 
-                    tyle={{ width: '300px', height: 'auto' }} 
+                    style={{ width: '400px', height: 'auto', maxHeight: '600px' }} 
                 />
             </div>
           )}
           <div className='col-2'>
             <h1>{product.name}</h1>
-            <h4>{renderRating()}</h4>
+            <p>
+                <Rating
+                  name="simple-controlled"
+                  value={product.totalrating}
+                  readOnly
+                />
+            {renderRating()}
+            </p>
+
+
+
             <h3>Gunpla Details</h3>
             <p>{product.detail}</p>
 
@@ -122,7 +137,7 @@ const GunplaDetails = () => {
               <li>Release Date: <span>{formatReleaseDate(product.release_date)}</span></li>
               <li>Category: <span>{product.grade}</span></li>
               <li>Series: <span>{product.serie}</span></li>
-              <li>Heights: <span> 18 cm</span></li>
+              <li>Heights: <span>{product.height} cm</span></li>
               <li>Number of Runners : <span>{product.runner_num}</span></li>              
               <li>Cons: <span>{product.cons}</span></li>
               <li>Decals: </li>
