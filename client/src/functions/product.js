@@ -16,3 +16,11 @@ export const read = async (id) => {
 export const update = async (id, data) => {
     return await axios.put(process.env.REACT_APP_API + '/product/' + id, data)
 }
+
+export const rateProduct = async (ratingData, token) => {
+    return await axios.put(`${process.env.REACT_APP_API}/rating`, ratingData, {
+      headers: {
+        authtoken: token
+      }
+    });
+  };
