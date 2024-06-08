@@ -39,7 +39,7 @@ import Collection from './components/pages/collection/Collection'
 import Account from './components/pages/user/Account'
 import Techniques from './components/pages/techniques/Techniques'
 import Blogtech from './components/pages/techniques/blogtech/Blogtech'
-import Details from './components/pages/details/Details'
+import GunplaDetails from './components/pages/user/details/GunplaDetails'
 
 function App() {
   // javascript
@@ -95,10 +95,10 @@ function App() {
         </UserRoute>
         } />
 
-        <Route path='/gunpla/gunplaID' element={
-        <UserRoute>
-          <Details/>
-        </UserRoute>
+        <Route path="/gunpla/:id" element={
+          <UserRoute>
+            <GunplaDetails />
+          </UserRoute>
         } />
 
         <Route path='/techniques/blogID' element={
@@ -106,7 +106,6 @@ function App() {
           <Blogtech/>
         </UserRoute>
         } />
-
       
 
 
