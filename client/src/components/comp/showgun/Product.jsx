@@ -7,10 +7,12 @@ const Product = ({result, handlechange}) => {
   return (
     <>
       <div className="gproduct-container">
-      <section className="sidebar-container">
-          <Series handleChange={handlechange}/>
-      </section>
-        {result}
+        <section className="sidebar-container">
+            <Series handleChange={handlechange}/>
+        </section>
+        <div className="gundam-wrapper">
+            {result}
+        </div>
       </div>
     </>
   )

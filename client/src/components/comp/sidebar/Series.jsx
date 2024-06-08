@@ -72,6 +72,48 @@ const Series = ({handleChange}) => {
           title="Gundam ZZ"
           name="test"
         />
+        <Input
+          handleChange={handleChange}
+          value="Zeta Gundam"
+          title="Zeta Gundam"
+          name="test"
+        />
+        <Input
+          handleChange={handleChange}
+          value="Victory Gundam"
+          title="Victory Gundam"
+          name="test"
+        />
+        <Input
+          handleChange={handleChange}
+          value="G Gundam"
+          title="G Gundam"
+          name="test"
+        />
+        <Input
+          handleChange={handleChange}
+          value="Gundam Wing"
+          title="Gundam Wing"
+          name="test"
+        />
+        <Input
+          handleChange={handleChange}
+          value="Sangokuden "
+          title="SD Gundam Sangokuden"
+          name="test"
+        />
+        <Input
+          handleChange={handleChange}
+          value="Hathaway "
+          title="Gundam Hathaway"
+          name="test"
+        />
+        <Input
+          handleChange={handleChange}
+          value="The Witch From Mercury"
+          title="The Witch From Mercury"
+          name="test"
+        />
       </div>
     </div>
   )

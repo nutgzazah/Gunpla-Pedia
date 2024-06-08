@@ -6,6 +6,8 @@
     font-size: 22px;
     margin-bottom: 20px;
     font-weight: bold;
+    display: flex;
+    justify-content: center;
 }
 
 .sidebar-container {
@@ -15,34 +17,42 @@
     z-index: 3;
 }
 
-.gcard-container {
+.gundam-wrapper {
     display: flex;
     flex-wrap: wrap;
     margin-top: 2rem;
     flex-grow: 1;
     margin-left: 0.5rem;
-    z-index: -2;
+    gap: 5px;
 }
 
-.card {
-    margin: 20px;
-    border: 2px solid #ededed;
-    padding: 20px;
+.cards {
+    height: 450px;
+    width: 270px;
     cursor: pointer;
+    margin-bottom: 20px;
+    margin-left: 20px;
 }
 
-.card-img {
+.cards-img {
     width: 16rem;
+    height: auto;
     margin-bottom: 1rem;
 }
 
 .card-name {
     margin-bottom: 1rem;
+    width: 250px;
+}
+
+.card-name:hover {
+    color: #0D0D34;
 }
 
 .card-reviews {
     margin-bottom: 1rem;
     display: flex;
+    align-items: center;
 }
 
 .totalrating {
@@ -51,6 +61,18 @@
 }
 
 .product-button {
-    margin-left: 10px;
+    margin-left: 55px;
     cursor: pointer;
+    height: 30px;
+    width: 110px;
+    font-size: 13px;
+    background: #fb2f38;
+    border-radius: 10px;
+    border: transparent;
+    color: white;
+    font-weight: bold;
+}
+
+.product-button:hover{
+    background: #b31f26;
 }
