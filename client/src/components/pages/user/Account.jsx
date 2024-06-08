@@ -17,14 +17,15 @@ const Account = () => {
           <div class="title-total">   
             <div class="title"><a href='/collection'><IoHeartCircleOutline /></a></div>
             <h2>Amuro Ray</h2>
-        <div class="desc">This is your profile passport, Please show this card to use & visit this website.</div>
+        <div class="desc">This is your profile passport, Please show this card to visit this website.</div>
         <div class="descr">Role: User </div>
         <div class="descr">You have 9 gunpla</div>
         
         <div class="actions">
-          <button className='btnc1'>Edit profile</button>
-          <button className='btnc2'>Change password</button>
-        </div></div>
+          <button className='btnc1'>Edit name</button>
+          <input type='text' className='changename' placeholder='Change name here'></input>
+        </div>
+        </div>
         </div>
     </div>
   </div>

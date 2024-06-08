@@ -4,6 +4,9 @@
     display: grid;
     align-items: center;
     justify-items: center;
+    background-image: linear-gradient(rgba(4,9,30,0.7), rgba(4,9,30,0.7)),  url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/i/0c7b71c0-ef0a-440b-a3b2-96e5017b97ea/d7gnipi-9d8fe7d9-ee5b-40c9-aed9-5dce13f34103.jpg');
+    background-size: cover; 
+    background-position: center; 
   }
 .profile_card {
     background: #0D0D34;
@@ -110,13 +113,29 @@
     }
   }
   
-.btnc2{
-  cursor: pointer;
-  border: none;
-  color: #fb2f38;
-  background: transparent;
-  font-weight: bold;
-  font-size: 15px;
-  margin-top: 20px;
-  margin-left: 10px;
+.changename {
+    width: 250px;
+    height: 41px;
+    margin-top: 20px;
+    margin-left: 10px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 16px;
+    background: transparent;
+    color:white ;
+}
+
+.changename:focus {
+  outline: none;
+  background: white;
+  color: black;
+}
+
+.changename::placeholder{
+  color: white;
+}
+
+.changename:focus::placeholder{
+  color: black;
 }
