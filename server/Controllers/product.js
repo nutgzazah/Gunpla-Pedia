@@ -1,10 +1,12 @@
 const Product = require('../Models/Product')
+const Collection = require('../Models/Collection');
 const fs = require('fs');
 
 //rating
     exports.rating = async(req,res)=>{
-        console.log("rating: ",req.user._id)
+        console.log("req.user: ",req.user)
         console.log("req.body: ",req.body)
+        console.log("rating by: ",req.user._id)
         const { star, prodId } = req.body
         // const userId = req.user._id
     try{
@@ -70,6 +72,7 @@ exports.create = async(req,res)=>{
         if(req.file){
             data.file = req.file.filename
         }
+        data.ratings = []; // Ensure ratings array is initialized
         const producted = await Product(data).save()
         res.send(producted)
     }catch(err){
@@ -103,6 +106,16 @@ exports.remove = async(req,res)=>{
     try{
         const id = req.params.id
         const removed = await Product.findOneAndDelete({_id:id}).exec()
+
+        if(!removed) {
+            return res.status(404).send("Product not found");
+        }
+
+        // Remove the product from all user collections
+        await Collection.updateMany(
+            { },
+            { $pull: { products: id } } // Corrected query
+        );
 
         if(removed?.file){
             await fs.unlink('./uploads/'+ removed.file,(err)=>{

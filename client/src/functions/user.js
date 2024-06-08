@@ -14,3 +14,9 @@ export const changeRole = async (authtoken, data) =>
         }
     })
     
+export const remove = async (authtoken, userId) =>
+    await axios.delete(`${process.env.REACT_APP_API}/user/${userId}`, {
+        headers: {
+            authtoken
+        }
+    });

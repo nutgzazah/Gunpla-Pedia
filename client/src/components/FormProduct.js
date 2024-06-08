@@ -17,9 +17,6 @@ import AddIcon from '@mui/icons-material/Add';
 import InputLabel from '@mui/material/InputLabel';
 
 
-
-
-
 import {
     remove,
     create,
@@ -31,9 +28,9 @@ import {
 
 const FormProduct = () => {
     // javascript
-    const tam = 'tam roitai'
     const [data, setData] = useState([])
     const [form, setForm] = useState({})
+    
 
     useEffect(() => {
         // code

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {useSelector} from "react-redux"
-
+import DeleteIcon from '@mui/icons-material/Delete';
 import { Box, Button, MenuItem, Select, TextField } from '@mui/material'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,7 +11,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 //function
-import { list, changeRole } from '../../../functions/user'
+import { list, changeRole, remove } from '../../../functions/user'
 
 const ManageUser = () => {
   const [data, setData] = useState([])
@@ -41,43 +41,61 @@ const ManageUser = () => {
     }).catch(err=>console.log(err))
   }
 
+  const handleDelete = async(id) => {
+    await remove(user.user.token, id).then((res) => {
+      loadData(user.user.token);
+    }).catch(err => console.log(err));
+  };
 
-  return <div>
-    <TableContainer component={Paper}>
+
+  return (
+    <div>
+      <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell>#</TableCell>
-              <TableCell>name</TableCell>
-              <TableCell>role</TableCell>
-              <TableCell>updatedAt</TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell>Role</TableCell>
+              <TableCell>Updated At</TableCell>
+              <TableCell>Action</TableCell> {/* Add a column for action */}
             </TableRow>
           </TableHead>
           <TableBody>
           {
-          data ? data.map((item, index) => (
-            <TableRow
-            key={index}
-            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell>{index + 1}</TableCell>
-              <TableCell>{item.name}</TableCell>
-              <TableCell>
-                <Select onChange={(e)=>handleChangeRole(item._id,e)} defaultValue={item.role} style={{width:'100px'}}>
-                  {role.map((item)=>
-                  <MenuItem value={item}>{item}</MenuItem>
-                  )}
-                </Select>
-              </TableCell>
-              <TableCell>{item.updatedAt}</TableCell>
+            data && data.map((item, index) => (
+              <TableRow
+                key={index}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell>{index + 1}</TableCell>
+                <TableCell>{item.name}</TableCell>
+                <TableCell>
+                  <Select onChange={(e)=>handleChangeRole(item._id,e)} defaultValue={item.role} style={{width:'100px'}}>
+                    {role.map((roleItem) => (
+                      <MenuItem key={roleItem} value={roleItem}>{roleItem}</MenuItem>
+                    ))}
+                  </Select>
+                </TableCell>
+                <TableCell>{item.updatedAt}</TableCell>
+                <TableCell>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    startIcon={<DeleteIcon />}
+                    onClick={() => handleDelete(item._id)} // Pass the user ID to the delete function
+                  >
+                    Delete
+                  </Button>
+                </TableCell>
               </TableRow>
-              ))
-              : null
-              }
-        </TableBody>
-      </Table>
-    </TableContainer>
-  </div>
-}
+            ))
+          }
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </div>
+  );
+};
 
 export default ManageUser
