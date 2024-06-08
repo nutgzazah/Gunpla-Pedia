@@ -65,6 +65,7 @@ const Navbar = () => {
           <li><Link to="/">Home</Link></li>
           <li><Link to="/gunpla">Gunpla</Link></li>
           <li><Link to="/techniques">Techniques</Link></li>
+          <li><Link to="/collection">My collection</Link></li>    
         </ul>
         {user.user.length === 0 ? (
           <Link to="/login"><button type="button" className="log-nav">Login</button></Link>
