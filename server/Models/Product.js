@@ -13,6 +13,10 @@ const productSchema = mongoose.Schema({
         type: String,
         default: ''
     },
+    height:{
+        type: Number,
+        default: 0
+    },
     runner_num:{
         type: Number,
         default: 0

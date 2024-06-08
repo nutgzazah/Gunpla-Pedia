@@ -76,15 +76,7 @@ const post = () => {
             </div>
 
             <div className='section-topics'>
-                <h1 className='section-title'>Article</h1>
-                <ul>
-                    <li><a href='#'>Assembly Techniques</a></li>
-                    <li><a href='#'>Painting Techniques</a></li>
-                    <li><a href='#'>Cutline Techniques</a></li>
-                </ul>
-            </div>
-            <div className='section-topics'>
-                <h1 className='section-title'>Video</h1>
+              <h1 className='section-title'>All Techniques</h1>
                 <ul>
                     <li><a href='#'>Assembly Techniques</a></li>
                     <li><a href='#'>Painting Techniques</a></li>
