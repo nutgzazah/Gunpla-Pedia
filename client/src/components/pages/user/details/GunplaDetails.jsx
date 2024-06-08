@@ -12,15 +12,6 @@ const GunplaDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  
-  const [productImage, setProductImage] = useState(
-    'https://da.lnwfile.com/_/da/_raw/lo/8i/ez.jpg'
-  );
-
-  const handleImageClick = (newImageUrl) => {
-    setProductImage(newImageUrl);
-  };
-
   const tableStyle = {
     width: '100%',
     borderCollapse: 'collapse',
