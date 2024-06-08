@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios'
 import { useParams } from 'react-router-dom';
 import './Details.css';
@@ -137,6 +138,7 @@ const GunplaDetails = () => {
 
   return (
     <div className='small-containers single-product'>
+      <Link to="/gunpla">{`< Back to All Gunpla`}</Link>
       <div className='pic-row'>
         {product.file && (
           <div>
