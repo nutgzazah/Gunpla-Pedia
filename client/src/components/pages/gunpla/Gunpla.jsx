@@ -1,34 +1,39 @@
-import React, { useState } from 'react';
-import Grades from '../../comp/grades/Grades'
-import Topgunpla from '../topgunpla/Topgunpla'
-import Newslide from '../../comp/newslider/Newslide'
-import Gsearch from '../../comp/gsearch/Gsearch'
-import Guidegrade from '../../comp/guidegrade/Guidegrade'
-import Product from '../../comp/showgun/Product'
-import products from '../../db/data'
+import React, { useState, useEffect } from 'react';
+import Grades from '../../comp/grades/Grades';
+import Topgunpla from '../topgunpla/Topgunpla';
+import Newslide from '../../comp/newslider/Newslide';
+import Gsearch from '../../comp/gsearch/Gsearch';
+import Guidegrade from '../../comp/guidegrade/Guidegrade';
+import Product from '../../comp/showgun/Product';
+import Recommends from '../../comp/recommends/Recommends';
+import { getdata } from '../../../functions/product';
 import Card from '../../comp/showcom/Cards';
-import Recommends from '../../comp/recommends/Recommends'
-
 
 const Gunpla = () => {
+  const [products, setProducts] = useState([]);
   const [selectedSeries, setSelectedSeries] = useState(null);
   const [query, setQuery] = useState("");
 
-  //input filter
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const response = await getdata();
+      setProducts(response.data);
+    };
+    fetchProducts();
+  }, []);
+
   const handleInputChange = event => {
     setQuery(event.target.value);
   };
 
   const filteredItems = products.filter((product) => 
-   product.name.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) !== -1
+    product.name.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) !== -1
   );
 
-  //radio filter
   const handleChange = event => {
     setSelectedSeries(event.target.value);
   };
 
-  //buttons filter
   const handleClick = event => {
     setSelectedSeries(event.target.value);
   };
@@ -36,12 +41,10 @@ const Gunpla = () => {
   function filteredData(products, selected, query) {
     let filteredProducts = products;
 
-    // Filtering Input Items
     if (query) {
       filteredProducts = filteredItems;
     }
 
-    // Applying selected filter
     if (selected) {
       filteredProducts = filteredProducts.filter(
         ({ serie, grade, name }) =>
@@ -51,30 +54,33 @@ const Gunpla = () => {
       );
     }
 
-    return filteredProducts.map(({img, name, star, totalrating }) => (
+    return filteredProducts.map(({ _id, file, name, totalrating, ratings }) => (
       <Card 
-      key = {Math.random()}
-      img = {img}
-      name = {name}
-      star = {star}
-      totalrating = {totalrating}
+        key={_id}
+        id={_id}
+        img={`${process.env.REACT_APP_API}/uploads/${file}`}
+        name={name}
+        star={totalrating}
+        totalrating={totalrating}
+        ratings={ratings}
       />
-    ))
+    ));
   }
 
   const result = filteredData(products, selectedSeries, query);
+
   return (
     <div>
-      <Topgunpla/>
-      <Newslide/>
+      <Topgunpla />
+      <Newslide />
       <Grades />
-      <Recommends/>
-      <Topgunpla/>
-      <Gsearch query={query} handleInputChange={handleInputChange}/>
-      <Guidegrade handleClick={handleClick}/>
-      <Product result={result} handleChange={handleChange}  />
+      <Recommends />
+      <Topgunpla />
+      <Gsearch query={query} handleInputChange={handleInputChange} />
+      <Guidegrade handleClick={handleClick} />
+      <Product result={result} handleChange={handleChange} />
     </div>
-  )
-}
+  );
+};
 
-export default Gunpla
+export default Gunpla;
