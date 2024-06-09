@@ -17,34 +17,42 @@ export const update = async (id, data) => {
     return await axios.put(process.env.REACT_APP_API + '/product/' + id, data)
 }
 
-export const rateProduct = async (ratingData, token) => {
+export const rateProduct = async (ratingData, authtoken) => {
     return await axios.put(`${process.env.REACT_APP_API}/rating`, ratingData, {
-      headers: {
-        authtoken: token
-      }
+      headers:{
+        authtoken
+    }
     });
   };
 
-export const addToCollection = async (productId, token) => {
+export const addToCollection = async (productId, authtoken) => {
   return await axios.post(
     `${process.env.REACT_APP_API}/collection/add`,
     { productId },
     {
-      headers: {
-        authtoken: token
-      }
+      headers:{
+        authtoken
+    }
     }
   );
 };
 
-export const removeFromCollection = async (productId, token) => {
+export const removeFromCollection = async (productId, authtoken) => {
     return await axios.post(
       `${process.env.REACT_APP_API}/collection/remove`,
       { productId },
       {
-        headers: {
-          authtoken: token
-        }
+        headers:{
+          authtoken
+      }
       }
     );
   };
+
+  export const getCollection = async (authtoken) => {
+    return await axios.get(`${process.env.REACT_APP_API}/collection`, {
+        headers: {
+            authtoken
+        }
+    });
+};
