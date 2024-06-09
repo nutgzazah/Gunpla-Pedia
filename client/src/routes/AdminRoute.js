@@ -21,7 +21,7 @@ const AdminRoute = ({ children }) => {
         setOk(true);
       }).catch((err) => {
         console.log(err);
-        navigate('/gunpla');
+        navigate('/gunpla'); 
       });
     }
   }, [user, navigate]);
