@@ -85,6 +85,8 @@ exports.update = async(req,res)=>{
         const id = req.params.id
         var newData = req.body
 
+        newData.ratings = []
+        
         if(typeof req.file !== 'undefined'){
             newData.file = req.file.filename
             await fs.unlink('./uploads/'+ newData.fileOld,(err)=>{

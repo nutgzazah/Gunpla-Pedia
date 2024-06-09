@@ -127,7 +127,7 @@ function App() {
         </AdminRoute>
         } />
 
-        <Route path='/admin/viewtable' element={
+        <Route path='/admin/gunpla' element={
         <AdminRoute>
           <FormProduct />
         </AdminRoute>
