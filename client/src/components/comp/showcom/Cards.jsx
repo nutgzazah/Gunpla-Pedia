@@ -55,7 +55,18 @@ const Card = ({ baselink,id, img, name, star, totalrating, ratings }) => {
   return (
     <section className="cards" onClick={handleClick} style={{ cursor: 'pointer' }}>
       <div className="img-container">
-        <img src={img} className="cards-img" alt={name}></img>
+      {img === 'noimage.jpg' ? (
+        <img 
+          src='noimage2.jpg'
+          className="cards-img"
+          />
+          ) : (
+        <img 
+          src={img} className="cards-img" 
+          alt={name}
+          >
+          </img>
+        )}
       </div>
       <div className="card-details">
         <h3 className="card-name">{name}</h3>

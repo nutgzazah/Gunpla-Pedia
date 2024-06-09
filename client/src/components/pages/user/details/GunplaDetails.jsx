@@ -142,11 +142,18 @@ const GunplaDetails = () => {
       <div className='pic-row'>
         {product.file && (
           <div>
-            <img
-              src={`${process.env.REACT_APP_API}/uploads/${product.file}`}
-              alt={product.name}
-              style={{ width: '400px', height: 'auto', maxHeight: '600px' }}
-            />
+            {product.file === 'noimage.jpg' ? (
+              <img 
+                src={`${process.env.REACT_APP_API}/uploads/noimage2.jpg`} 
+                style={{ width: '400px', height: 'auto', maxHeight: '600px' }}
+                />
+              ) : (
+              <img 
+                src={`${process.env.REACT_APP_API}/uploads/${product.file}`} 
+                alt={product.name}
+                style={{ width: '400px', height: 'auto', maxHeight: '600px' }}
+                />
+              )}
           </div>
         )}
         <div className='col-2'>

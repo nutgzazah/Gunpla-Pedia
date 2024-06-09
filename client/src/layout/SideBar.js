@@ -92,7 +92,7 @@ const SideBar = () => {
               </Link>
 
               <SubMenu icon={<MapOutlinedIcon />} label="Data">
-                <Link to={"/admin/viewtable"} className="menu-bars sidebar-links">
+                <Link to={"/admin/gunpla"} className="menu-bars sidebar-links">
                   <MenuItem icon={<TableViewIcon />}>
                     {" "}
                     Gunpla 

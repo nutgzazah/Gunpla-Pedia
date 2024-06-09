@@ -1,190 +1,142 @@
-import React, { useEffect, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
-
-import { read, update } from '../functions/product'
-
-import { Button, MenuItem, Select, TextField } from '@mui/material'
-import EditIcon from '@mui/icons-material/Edit';
-import InputLabel from '@mui/material/InputLabel';
+import React, { useState, useEffect } from 'react';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import { update, read } from '../functions/product';
+import './FormProduct.css';
 
 const FormEditProduct = () => {
     const params = useParams()
-    const navigate = useNavigate()
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const [form, setForm] = useState({});
+    const [preview, setPreview] = useState(null);
 
-
-    const [data, setData] = useState({
-        name: '',
-        grade: '',
-        serie: '',
-        runner_num: '',
-        cons: '',
-        release_date: '',
-        detail: '',
-        file: '',
-        totalrating: '',
-    })
-    const [fileOld, setFileOld] = useState()
+    
 
     useEffect(() => {
-        loadData(params.id)
-    }, [])
+        loadProductData(id);
+    }, [id]);
 
-    const loadData = async (id) => {
-        read(id)
+    const loadProductData = async (productId) => {
+        read(productId)
             .then((res) => {
-                setData(res.data)
-                setFileOld(res.data.file)
+                setForm(res.data);
+                if (res.data.file !== 'noimage.jpg') {
+                    setPreview(`${process.env.REACT_APP_API}/uploads/${res.data.file}`);
+                }
             })
-    }
+            .catch((err) => console.log(err));
+    };
+
     const handleChange = (e) => {
-        if(e.target.name === 'file'){
-            setData({
-                ...data,
-                [e.target.name]: e.target.files[0]
-            })
-        }else{
-            setData({
-                ...data,
-                [e.target.name]: e.target.value
-            })
+        if (e.target.name === 'file') {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                setForm({
+                    ...form,
+                    [e.target.name]: file,
+                });
+                setPreview(URL.createObjectURL(file));
+            } else {
+                alert('Please select a valid image file');
+            }
+        } else if (e.target.name !== 'ratings') { // Exclude 'ratings' field
+            setForm({
+                ...form,
+                [e.target.name]: e.target.value,
+            });
         }
-    }
+    };
+
+    const handleDeleteFile = () => {
+        setForm({
+            ...form,
+            file: 'noimage.jpg'
+        });
+        setPreview(null);
+    };
+
     const handleSubmit = async (e) => {
-        e.preventDefault()
-        console.log(data)
-        const formWithImageData = new FormData()
-        for (const key in data){
-            formWithImageData.append(key,data[key])
+        e.preventDefault();
+        const formWithImageData = new FormData();
+        for (const key in form) {
+            formWithImageData.append(key, form[key]);
         }
-        formWithImageData.append('fileOld',fileOld)
-        update(params.id, formWithImageData)
-        .then(res => {
-                console.log(res)
-                navigate('/admin/viewtable')
-        })
-        .catch((err) => console.log(err))
-    }
+        update(id, formWithImageData)
+            .then(res => {
+                console.log(res.data);
+                navigate('/admin/gunpla');
+            })
+            .catch((err) => console.log(err));
+    };
 
-    const grade = ['SD','HG','RG','MG','MGSD','PG','Mega Size','HIRM','1/100']
-    const serie = ['Gundam','Zeta Gundam','Gundam ZZ','Victory Gundam','Unicorn','Thunderbolt','G Gundam','Wing','SEED','SEED Destiny','00','Sangokuden','AGE','Build Fighters','The Origin','Iron-Blooded Orphans','Hathaway','The Witch From Mercury']
-
+    const gradeOptions = ['SD', 'HG', 'RG', 'MG', 'MGSD', 'PG', 'Mega Size', 'HIRM', '1/100'];
+    const serieOptions = ['Gundam', 'Zeta Gundam', 'Gundam ZZ', 'Victory Gundam', 'Unicorn', 'Thunderbolt', 'G Gundam', 'Wing', 'SEED', 'SEED Destiny', '00', 'Sangokuden', 'AGE', 'Build Fighters', 'The Origin', 'Iron-Blooded Orphans', 'Hathaway', 'The Witch From Mercury'];
 
     return (
-        <div><h2>Gunpla Editor<EditIcon/></h2>
-
-            <form onSubmit={handleSubmit} encType='multipart/form-data'>
-            <div>
-                <TextField 
-                id="outlined-basic" 
-                label="name" 
-                name='name'
-                value={data.name}
-                focused
-                onChange={e => handleChange(e)}
-                variant="outlined" 
-                margin="normal"/>
-            </div>
-
-            <div>
-                <InputLabel>Grade</InputLabel>
-                <Select 
-                // label="Grade" 
-                name='grade'
-                value={data.grade}
-                focused
-                defaultValue={data.grade}
-                onChange={e => handleChange(e)} 
-                style={{width:'130px'}}
-                >
-                    {grade.map((item)=>
-                    <MenuItem value={item}>{item}</MenuItem>
+        <div className="FormProduct-container">
+            <Link to="/admin/gunpla">{`< Back to Manage Gunpla`}</Link>
+            <h2>Edit Gunpla Product</h2>
+            <form onSubmit={handleSubmit} encType="multipart/form-data" className="FormProduct-form">
+                <div className="FormProduct-form-group">
+                    <label>Name:</label>
+                    <input type="text" name="name" value={form.name || ''} onChange={handleChange} required />
+                </div>
+                <div className="FormProduct-form-group">
+                    <label>Grade:</label>
+                    <select name="grade" value={form.grade || ''} onChange={handleChange}>
+                        <option value="">Select Grade</option>
+                        {gradeOptions.map((grade, index) => (
+                            <option key={index} value={grade}>
+                                {grade}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div className="FormProduct-form-group">
+                    <label>Serie:</label>
+                    <select name="serie" value={form.serie || ''} onChange={handleChange}>
+                        <option value="">Select Serie</option>
+                        {serieOptions.map((serie, index) => (
+                            <option key={index} value={serie}>
+                                {serie}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div className="FormProduct-form-group">
+                    <label>Height:</label>
+                    <input type="number" name="height" value={form.height || ''} onChange={handleChange} />
+                </div>
+                <div className="FormProduct-form-group">
+                    <label>Runner Numbers:</label>
+                    <input type="number" name="runner_num" value={form.runner_num || ''} onChange={handleChange} />
+                </div>
+                <div className="FormProduct-form-group">
+                    <label>Consideration:</label>
+                    <input type="text" name="cons" value={form.cons || ''} onChange={handleChange} />
+                </div>
+                <div className="FormProduct-form-group">
+                    <label>Detail:</label>
+                    <input type="text" name="detail" value={form.detail || ''} onChange={handleChange} />
+                </div>
+                <div className="FormProduct-form-group">
+                    <label>File:</label>
+                    <input type="file" name="file" onChange={handleChange} accept="image/*" />
+                    {preview ? (
+                        <div className="FormProduct-img-preview-container">
+                            <img src={preview} alt="Preview" className="img-preview" />
+                            <button type="button" onClick={handleDeleteFile}>Delete Image</button>
+                        </div>
+                    ) : (
+                        <div className="FormProduct-img-placeholder">
+                            <p>No image selected</p>
+                        </div>
                     )}
-                </Select>
-            </div>
-
-            <div>
-                <InputLabel>Serie</InputLabel>
-                <Select 
-                // label="Serie" 
-                name='serie'
-                value={data.serie}
-                focused
-                onChange={e => handleChange(e)} 
-                autoWidth
-                >
-                    {serie.map((item)=>
-                    <MenuItem value={item}>{item}</MenuItem>
-                    )}
-                </Select>
-            </div>
-
-            <div>
-                <TextField 
-                id="outlined-basic" 
-                label="Runner Numbers" 
-                type='Number'
-                name='runner_num'
-                value={data.runner_num}
-                focused
-                onChange={e => handleChange(e)}
-                variant="outlined" 
-                margin="normal"
-                />
-            </div>
-
-            <div>
-                <TextField 
-                id="outlined-basic" 
-                label="Consideration" 
-                name='cons'
-                value={data.cons}
-                focused
-                onChange={e => handleChange(e)}
-                variant="outlined" 
-                margin="normal"
-                />
-            </div>
-
-            {/* <div>
-                <TextField 
-                id="outlined-basic" 
-                label="release_date" 
-                name='release_date'
-                onChange={e => handleChange(e)}
-                variant="outlined" 
-                margin="normal"
-                />
-            </div> */}
-
-            <div>
-                <TextField 
-                id="outlined-basic" 
-                label="detail" 
-                name='detail'
-                value={data.detail}
-                focused
-                onChange={e => handleChange(e)}
-                variant="outlined" 
-                margin="normal"/>
-            </div>
-
-            <div>
-                <TextField 
-                type="file"
-                id="outlined-basic" 
-                label="file" 
-                name='file'
-                onChange={e => handleChange(e)}
-                variant="outlined"
-                focused 
-                margin="normal"/>
-            </div>
-
-            <Button variant="contained" type='submit' >Submit</Button>
+                </div>
+                <button type="submit" className="FormProduct-submit-button">Update</button>
             </form>
-
         </div>
-    )
-}
+    );
+};
 
-export default FormEditProduct
+export default FormEditProduct;
