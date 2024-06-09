@@ -17,8 +17,8 @@ const Background = () => {
           <p>GUNPLA is an abbreviation for Gundam Plastic Model. It is a model that comes 
             from the Anime Gundam produced by Bandai in Japan. GUNPLA models are divided into grades 
             and ratios.There are various things to buy and choose from. Depends on your preferences</p>
-        <div className="btn-box-mean"><Link to="/techniques">
-          <a href='#'>You're new as builder?</a></Link>
+        <div className="btn-box-mean"><a href='#'><Link to="/techniques">
+          You're new as builder?</Link></a>
           </div>
         </div>
       </section>
