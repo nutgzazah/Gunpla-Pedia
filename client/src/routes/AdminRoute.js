@@ -12,7 +12,7 @@ const AdminRoute = ({ children }) => {
   const [ok, setOk] = useState(false);
 
   useEffect(() => {
-    // Check if user is not logged in, then navigate to /login
+    // Check if user is not logged in, then navigate to /logins
     if (!user || !user.user || !user.user.token) {
       navigate('/login');
     } else {
