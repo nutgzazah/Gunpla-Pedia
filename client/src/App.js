@@ -7,7 +7,7 @@ import { CssBaseline } from "@mui/material";
 
 import FormProduct from './components/FormProduct';
 import FormEditProduct from './components/FormEditProduct';
-
+import FormTechnique from './components/FormTechnique';
 
 //admin
 import HomePageAdmin from './components/pages/admin/HomePageAdmin';
@@ -41,6 +41,7 @@ import Techniques from './components/pages/techniques/Techniques'
 import Blogtech from './components/pages/techniques/blogtech/Blogtech'
 import GunplaDetails from './components/pages/user/details/GunplaDetails'
 import Collection_GunplaDetails from './components/pages/collection/Collection_GunplaDetails';
+import FormEditTechnique from './components/FormEditTechnique';
 
 function App() {
   // javascript
@@ -78,11 +79,6 @@ function App() {
 
 
         { /* User */}
-        <Route path='/user/index' element={
-        <UserRoute>
-          <HomePageUser/>
-        </UserRoute>
-        } />
 
         <Route path='/collection' element={
         <UserRoute>
@@ -137,9 +133,21 @@ function App() {
         </AdminRoute>
         } />
 
-        <Route path='/edit/:id' element={
+        <Route path='/admin/gunpla/edit/:id' element={
         <AdminRoute>
         <FormEditProduct />
+        </AdminRoute>
+        } />
+
+        <Route path='/admin/technique' element={
+        <AdminRoute>
+          <FormTechnique />
+        </AdminRoute>
+        } />
+
+        <Route path='/admin/technique/edit/:id' element={
+        <AdminRoute>
+          <FormEditTechnique />
         </AdminRoute>
         } />
 

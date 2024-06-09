@@ -74,18 +74,19 @@ const SideBar = () => {
                     justifyContent="center"
                     alignItems="center"
                     color="white"
-                  >
+                    >
                     <img
                       alt="profile-user"
                       width="100px"
                       height="100px"
                       src={`/assets/user.gif`}
                       style={{ cursor: "pointer", borderRadius: "70%" }}
-                    />
+                      />
                   </Box>
                 </Box>
               )}
 
+              
               <Link to="/admin/index" className="menu-bars sidebar-link">
                 <MenuItem icon={<HomeOutlinedIcon />}>Dashboard</MenuItem>
               </Link>
@@ -94,7 +95,13 @@ const SideBar = () => {
                 <Link to={"/admin/viewtable"} className="menu-bars sidebar-links">
                   <MenuItem icon={<TableViewIcon />}>
                     {" "}
-                    Table 
+                    Gunpla 
+                  </MenuItem>
+                </Link>
+                <Link to={"/admin/technique"} className="menu-bars sidebar-links">
+                  <MenuItem icon={<TableViewIcon />}>
+                    {" "}
+                    Technique
                   </MenuItem>
                 </Link>
               </SubMenu>
