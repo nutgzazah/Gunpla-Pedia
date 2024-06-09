@@ -72,6 +72,7 @@ exports.create = async(req,res)=>{
         if(req.file){
             data.file = req.file.filename
         }
+        data.sticker = JSON.parse(req.body.sticker);
         data.ratings = []; // Ensure ratings array is initialized
         const producted = await Product(data).save()
         res.send(producted)
