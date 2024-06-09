@@ -28,7 +28,6 @@ const AdminRoute = ({children}) => {
     <div className="app">
     <SideBar/>
     <main className="content">
-      <HeaderBar/>
       <div className="content_body">
         <Box m="20px">
             {children}
