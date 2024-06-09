@@ -208,7 +208,7 @@ const GunplaDetails = () => {
                 marginBottom: '1rem',
                 cursor: 'pointer',
                 color: '#fff',
-                background: '#256eff'
+                backgroundColor: inCollection ? '#0D0D34' : '#fb2f38',
               }}
               onClick={handleAddToCollection}
             >
