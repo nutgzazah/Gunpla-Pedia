@@ -12,10 +12,8 @@ const Techniques = () => {
   return (
     <div className='tech-page'>
       <Toptech />
-      <h1 className='h1-tech'>Recommended Techniques</h1>
-      <Carouseltech />
-      <Post />
       <Newbietech />
+      <Post />
     </div>
   )
 }
