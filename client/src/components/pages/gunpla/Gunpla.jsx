@@ -76,6 +76,7 @@ const Gunpla = () => {
 
     return filteredProducts.map(({ _id, file, name, totalrating, ratings }) => (
       <Card 
+        baselink='gunpla'
         key={_id}
         id={_id}
         img={`${process.env.REACT_APP_API}/uploads/${file}`}

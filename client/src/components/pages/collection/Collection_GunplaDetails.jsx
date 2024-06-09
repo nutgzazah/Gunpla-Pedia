@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios'
 import { useParams } from 'react-router-dom';
-import './Details.css';
+import '../../pages/user/details/Details.css';
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import { MdNotInterested } from "react-icons/md";
-import { read, rateProduct, addToCollection, removeFromCollection } from '../../../../functions/product';
+import { read, rateProduct, addToCollection, removeFromCollection } from '../../../functions/product';
 import { format } from 'date-fns';
 import Rating from '@mui/material/Rating';
 import { useSelector } from 'react-redux';  // Import useSelector to get auth details
 
-const GunplaDetails = () => {
+const Collection_GunplaDetails = () => {
   const [value, setValue] = useState(null);
   const { id } = useParams();
   const [product, setProduct] = useState(null);
@@ -138,7 +138,7 @@ const GunplaDetails = () => {
 
   return (
     <div className='small-containers single-product'>
-      <Link to="/gunpla">{`< Back to All Gunpla`}</Link>
+      <Link to="/collection">{`< Back to My Collection`}</Link>
       <div className='pic-row'>
         {product.file && (
           <div>
@@ -229,4 +229,4 @@ const GunplaDetails = () => {
   );
 }
 
-export default GunplaDetails;
+export default Collection_GunplaDetails;

@@ -5,7 +5,7 @@ import { addToCollection, removeFromCollection } from '../../../functions/produc
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 
-const Card = ({ id, img, name, star, totalrating, ratings }) => {
+const Card = ({ baselink,id, img, name, star, totalrating, ratings }) => {
   const [inCollection, setInCollection] = useState(false);
   const navigate = useNavigate();
   const { user } = useSelector((state) => ({ ...state }));
@@ -30,7 +30,7 @@ const Card = ({ id, img, name, star, totalrating, ratings }) => {
   }, [id, user.user]);
 
   const handleClick = () => {
-    navigate(`/gunpla/${id}`);
+    navigate(`/${baselink}/${id}`);
   };
 
   const handleCollectionClick = async (e) => {
