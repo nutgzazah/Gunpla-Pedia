@@ -14,7 +14,7 @@ const Series = ({handleChange}) => {
         </label>
         <Input
           handleChange={handleChange}
-          value="Gundam Seed"
+          value="Seed"
           title="Gundam Seed"
           name="test"
         />

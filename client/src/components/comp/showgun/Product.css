@@ -14,7 +14,8 @@
     margin-top: 20px;
     width: 20rem;
     border-right: 2px solid #e5e5e5;
-    z-index: 3;
+    
+    flex-shrink: 0; 
 }
 
 .gundam-wrapper {
@@ -24,6 +25,7 @@
     flex-grow: 1;
     margin-left: 0.5rem;
     gap: 5px;
+    flex-grow: 1; 
 }
 
 .cards {
@@ -48,6 +50,7 @@
   }
 
 .card-name {
+    margin-top: 1rem;
     margin-bottom: 1rem;
     width: 250px;
 }
@@ -82,3 +85,5 @@
 .product-button:hover{
     background: #b31f26;
 }
+
+
