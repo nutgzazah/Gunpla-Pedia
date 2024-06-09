@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './Sidebar.css'
 import {
   Sidebar,
   Menu,
@@ -27,7 +28,7 @@ const SideBar = () => {
     <div
       style={{
         display: "flex",
-        height: "100%",
+        height: "100%"
       }}
     >
       <Sidebar
@@ -35,7 +36,7 @@ const SideBar = () => {
         toggled={toggled}
         onBackdropClick={() => setToggled(false)}
         onBreakPoint={setBroken}
-        image="/assets/wallpaper.png"
+        backgroundColor="#0D0D34"
         breakPoint="md"
         style={{ height: "100%" }}
         // backgroundColor="green"
@@ -60,7 +61,6 @@ const SideBar = () => {
                     alignItems="center"
                     ml="15px"
                   >
-                    <Typography>ROITAI APP</Typography>
                     <IconButton onClick={() => setisCollapsed(!isCollapsed)}>
                       <MenuOutlinedIcon />
                     </IconButton>
@@ -73,44 +73,36 @@ const SideBar = () => {
                     display="flex"
                     justifyContent="center"
                     alignItems="center"
+                    color="white"
                   >
                     <img
                       alt="profile-user"
                       width="100px"
                       height="100px"
                       src={`/assets/user.gif`}
-                      style={{ cursor: "pointer", borderRadius: "50%" }}
+                      style={{ cursor: "pointer", borderRadius: "70%" }}
                     />
-                  </Box>
-                  <Box textAlign="center">
-                    <Typography sx={{ m: "10px 0 0 0" }}>ROITAI</Typography>
-                    <Typography>DEV </Typography>
                   </Box>
                 </Box>
               )}
 
-              <Link to="/admin/index" className="menu-bars">
+              <Link to="/admin/index" className="menu-bars sidebar-link">
                 <MenuItem icon={<HomeOutlinedIcon />}>Dashboard</MenuItem>
               </Link>
 
               <SubMenu icon={<MapOutlinedIcon />} label="Data">
-                <Link to={"/admin/viewtable"} className="menu-bars">
+                <Link to={"/admin/viewtable"} className="menu-bars sidebar-links">
                   <MenuItem icon={<TableViewIcon />}>
                     {" "}
                     Table 
                   </MenuItem>
                 </Link>
-                <MenuItem icon={<BarChartOutlinedIcon />}>
-                  {" "}
-                  Line charts
-                </MenuItem>
               </SubMenu>
 
               <SubMenu label="Manage" icon={<PeopleOutlinedIcon />}>
-                <Link to={"/admin/manageuser"} className="menu-bars">
+                <Link to={"/admin/manageuser"} className="menu-bars sidebar-links">
                   <MenuItem>User</MenuItem>
                 </Link>
-                <MenuItem> Admin</MenuItem>
               </SubMenu>
             </Menu>
 
@@ -121,22 +113,8 @@ const SideBar = () => {
                 marginTop: "32px",
               }}
             >
-              <Typography
-                variant="body2"
-                fontWeight={600}
-                style={{
-                  opacity: isCollapsed ? 0 : 0.5,
-                  letterSpacing: "0.5px",
-                }}
-              >
-                Extra
-              </Typography>
+          
             </div>
-
-            <Menu>
-              <MenuItem icon={<CalendarTodayOutlinedIcon />}>Calendar</MenuItem>
-              <MenuItem icon={<ReceiptOutlinedIcon />}>Documentation</MenuItem>
-            </Menu>
           </div>
         </div>
       </Sidebar>
