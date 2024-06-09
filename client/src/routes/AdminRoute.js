@@ -25,7 +25,7 @@ const AdminRoute = ({children}) => {
 
 
   return ok ? (
-    <div className="app" style={{display : 'flex'}}>
+    <div className="app"> 
     <SideBar/>
     <main className="content">
       <div className="content_body">
