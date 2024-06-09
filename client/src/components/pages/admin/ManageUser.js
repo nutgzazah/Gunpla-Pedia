@@ -98,6 +98,7 @@ const ManageUser = () => {
           </Table>
         </TableContainer>
       </div>
+      
     </div>
   );
 };

@@ -43,10 +43,12 @@
     display: flex;
     align-items: center;
     overflow-x: auto;
+    scrollbar-width: thin; 
+    scrollbar-color: #ccc #fff; 
 }
 
-.main-recommend section::-webkit-scrollbar{
-    display: none;
+.main-recommend section::-webkit-scrollbar {
+    height: 8px; 
 }
 
 .main-recommend section .products{
