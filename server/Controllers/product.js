@@ -87,7 +87,8 @@ exports.update = async(req,res)=>{
         var newData = req.body
 
         newData.ratings = []
-        
+        // newData.sticker = JSON.parse(req.body.sticker);
+
         if(typeof req.file !== 'undefined'){
             newData.file = req.file.filename
             await fs.unlink('./uploads/'+ newData.fileOld,(err)=>{
