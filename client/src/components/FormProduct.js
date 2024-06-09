@@ -30,6 +30,7 @@ const FormProduct = () => {
     // javascript
     const [data, setData] = useState([])
     const [form, setForm] = useState({})
+    const [preview, setPreview] = useState(null);
     
 
     useEffect(() => {
@@ -44,18 +45,33 @@ const FormProduct = () => {
             .catch((err) => console.log(err))
     }
     const handleChange = (e) => {
-        if(e.target.name === 'file'){
+        if (e.target.name === 'file') {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                setForm({
+                    ...form,
+                    [e.target.name]: file,
+                });
+                setPreview(URL.createObjectURL(file));
+            } else {
+                alert('Please select a valid image file');
+            }
+        } else {
             setForm({
                 ...form,
-                [e.target.name]: e.target.files[0]
-            })
-        }else{
-            setForm({
-                ...form,
-                [e.target.name]: e.target.value
-            })
+                [e.target.name]: e.target.value,
+            });
         }
-    }
+    };
+
+    const handleDeleteFile = () => {
+        setForm({
+            ...form,
+            file: 'noimage.jpg'
+        });
+        setPreview(null); // Remove the preview URL when the image is deleted
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         const formWithImageData = new FormData()
@@ -78,168 +94,136 @@ const FormProduct = () => {
             .catch((err) => console.log(err))
     }
 
-    const grade = ['SD','HG','RG','MG','MGSD','PG','Mega Size','HIRM','1/100']
-    const serie = ['Gundam','Zeta Gundam','Gundam ZZ','Victory Gundam','Unicorn','Thunderbolt','G Gundam','Wing','SEED','SEED Destiny','00','Sangokuden','AGE','Build Fighters','The Origin','Iron-Blooded Orphans','Hathaway','The Witch From Mercury']
-
+    const gradeOptions = ['SD','HG','RG','MG','MGSD','PG','Mega Size','HIRM','1/100'];
+    const serieOptions = ['Gundam','Zeta Gundam','Gundam ZZ','Victory Gundam','Unicorn','Thunderbolt','G Gundam','Wing','SEED','SEED Destiny','00','Sangokuden','AGE','Build Fighters','The Origin','Iron-Blooded Orphans','Hathaway','The Witch From Mercury'];
+  
     return (
         <div>
-            {/* HTML */}
-            <h2>Gunpla Adder<AddIcon/></h2>
-            <form onSubmit={handleSubmit} encType='multipart/form-data'>
-
-            <div>
-                <TextField 
-                id="outlined-basic" 
-                label="name" 
-                name='name'
-                onChange={e => handleChange(e)}
-                variant="outlined" 
-                margin="normal"
-                />
-            </div>
-
-            <div>
-                <InputLabel>Grade</InputLabel>
-                <Select 
-                // label="Grade" 
-                name='grade'
-                onChange={e => handleChange(e)} 
-                style={{width:'130px'}}
-                >
-                    {grade.map((item)=>
-                    <MenuItem value={item}>{item}</MenuItem>
-                    )}
-                </Select>
-            </div>
-
-            <div>
-                <InputLabel>Serie</InputLabel>
-                <Select 
-                // label="Serie" 
-                name='serie'
-                onChange={e => handleChange(e)} 
-                autoWidth
-                >
-                    {serie.map((item)=>
-                    <MenuItem value={item}>{item}</MenuItem>
-                    )}
-                </Select>
-            </div>
-
-            <div>
-                <TextField 
-                id="outlined-basic" 
-                label="Runner Numbers" 
-                type='Number'
-                name='runner_num'
-                onChange={e => handleChange(e)}
-                variant="outlined" 
-                margin="normal"
-                />
-            </div>
-
-            <div>
-                <TextField 
-                id="outlined-basic" 
-                label="Consideration" 
-                name='cons'
-                onChange={e => handleChange(e)}
-                variant="outlined" 
-                margin="normal"
-                />
-            </div>
-
-            {/* <div>
-                <TextField 
-                id="outlined-basic" 
-                label="release_date" 
-                name='release_date'
-                onChange={e => handleChange(e)}
-                variant="outlined" 
-                margin="normal"
-                />
-            </div> */}
-
-            <div>
-                <TextField 
-                id="outlined-basic" 
-                label="detail" 
-                name='detail'
-                onChange={e => handleChange(e)}
-                variant="outlined" 
-                margin="normal"
-                />
-            </div>
-
-            <div>
-                <TextField 
-                type="file"
-                id="outlined-basic" 
-                label="file" 
-                name='file'
-                onChange={e => handleChange(e)}
-                variant="outlined"
-                focused 
-                margin="normal"
-                />
-            </div>
-
-                <Button variant="contained" type='submit' >Submit</Button>
-            </form> 
-            <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-            <TableRow>
-                        <TableCell>#</TableCell>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Grade</TableCell>
-                        <TableCell>Serie</TableCell>
-                        <TableCell>Runner Numbers</TableCell>
-                        <TableCell>Consideration</TableCell>
-                        <TableCell>Release Date</TableCell>
-                        <TableCell>Detail</TableCell>
-                        <TableCell>File</TableCell>
-                        <TableCell>Ratings</TableCell>
-                        <TableCell>action</TableCell>
-                        <TableCell>edit</TableCell>
-            </TableRow>
-        </TableHead>
-        <TableBody>
-          {
-                        data ? data.map((item, index) => (
-                        <TableRow
-                        key={index}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                      >
-                                <TableCell>{index + 1}</TableCell>
-                                <TableCell>{item.name}</TableCell>
-                                <TableCell>{item.grade}</TableCell>
-                                <TableCell>{item.serie}</TableCell>
-                                <TableCell>{item.runner_num}</TableCell>
-                                <TableCell>{item.cons}</TableCell>
-                                <TableCell>{item.release_date}</TableCell>
-                                <TableCell>{item.detail}</TableCell>
-                                <TableCell>{item.file}</TableCell>
-                                <TableCell>{item.totalrating}</TableCell>
-                                <TableCell>
-                                    <DeleteIcon
-                                    color="error"
-                                    onClick={() => handleRemove(item._id)}/>
-                                </TableCell>
-                                <TableCell>
-                                    <Link to={'/edit/' + item._id}>
-                                        <EditIcon/>
-                                    </Link>
-                                </TableCell>
-                            </TableRow>
-                        ))
-                            : null
-                    }
-        </TableBody>
-      </Table>
-    </TableContainer>
-
+      <h2>Gunpla Adder</h2>
+      <form onSubmit={handleSubmit} encType='multipart/form-data'>
+        <div>
+          <label>Name:</label>
+          <input
+            type="text"
+            name='name'
+            onChange={handleChange}
+            required
+          />
         </div>
+        <div>
+          <label>Grade:</label>
+          <select name="grade" onChange={handleChange}>
+            <option value="">Select Grade</option>
+            {gradeOptions.map((grade, index) => (
+              <option key={index} value={grade}>{grade}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label>Serie:</label>
+          <select name="serie" onChange={handleChange}>
+            <option value="">Select Serie</option>
+            {serieOptions.map((serie, index) => (
+              <option key={index} value={serie}>{serie}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label>Height:</label>
+          <input
+            type="number"
+            name='height'
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>Runner Numbers:</label>
+          <input
+            type="number"
+            name='runner_num'
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>Consideration:</label>
+          <input
+            type="text"
+            name='cons'
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>Detail:</label>
+          <input
+            type="text"
+            name='detail'
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>File:</label>
+          <input
+            type="file"
+            name='file'
+            onChange={handleChange}
+            accept="image/*"
+          />
+          {preview && (
+                    <div>
+                        <img src={preview} alt="Preview" style={{ maxWidth: '100px' }} />
+                        <button type="button" onClick={handleDeleteFile}>Delete Image</button>
+                    </div>
+                )}
+        </div>
+        <button type='submit'>Submit</button>
+      </form>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Grade</th>
+            <th>Serie</th>
+            <th>Height</th>
+            <th>Runner Numbers</th>
+            <th>Consideration</th>
+            <th>Release Date</th>
+            <th>Detail</th>
+            <th>File</th>
+            <th>Ratings</th>
+            <th>Action</th>
+            <th>Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data && data.map((item, index) => (
+            <tr key={index}>
+              <td>{index + 1}</td>
+              <td>{item.name}</td>
+              <td>{item.grade}</td>
+              <td>{item.serie}</td>
+              <td>{item.height}</td>
+              <td>{item.runner_num}</td>
+              <td>{item.cons}</td>
+              <td>{item.release_date}</td>
+              <td>{item.detail}</td>
+              <td>
+                {item.file === 'noimage.jpg' ? <img src={`${process.env.REACT_APP_API}/uploads/noimage2.jpg`} style={{ maxWidth: '100px' }}/> : (
+                <img src={`${process.env.REACT_APP_API}/uploads/${item.file}`} style={{ maxWidth: '100px' }} />
+                )}
+              </td>
+              <td>{item.totalrating}</td>
+              <td>
+                <button onClick={() => handleRemove(item._id)}>Delete</button>
+              </td>
+              <td>
+                <Link to={'/admin/gunpla/edit/' + item._id}>Edit</Link>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
     )
 }
 
