@@ -25,6 +25,10 @@
 
 .posts .main-posts .post .posts-preview .preview-text{
     margin-top: 7px;
+    height: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #9b9b9b;
 }
 .posts .main-posts .post{
     width: 95%;
@@ -44,19 +48,21 @@
     color: white;
     border: 1px solid transparent;
     border-radius: .25rem;
+    margin-right: 10px;
 }
 
 .posts .main-posts .post .posts-image{
     widows: 40%;
     height: 100%;
     float: left;
-    max-width: 340px;
+    width: 340px;
 }
 
 .posts .main-posts .post .posts-preview {
     width: 60%;
     padding: 10px;
     float: right;
+    margin-right: 10px;
 }
 
 .posts .main-posts .recently-post-title{

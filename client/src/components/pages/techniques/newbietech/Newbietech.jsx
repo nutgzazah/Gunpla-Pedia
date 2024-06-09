@@ -20,7 +20,7 @@ const Newbietech = () => {
                 </div>
 
                 <div className='noob-text'>
-                    <span><FaBook/> : Video</span>
+                    <span><FaBook/> : Article</span>
                     <a href='#' className='noob-title'>This for noob who want to be a builder</a>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
                         Odio possimus atque dolor doloribus at sint dignissimos tempore, totam ducimus deserunt voluptate quisquam itaque culpa libero repellendus nam animi, fugit pariatur!</p>
@@ -34,7 +34,7 @@ const Newbietech = () => {
                 </div>
 
                 <div className='noob-text'>
-                    <span><FaBook/> : Video</span>
+                    <span><FaBook/> : Article</span>
                     <a href='#' className='noob-title'>This for noob who want to be a builder</a>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
                         Odio possimus atque dolor doloribus at sint dignissimos tempore, totam ducimus deserunt voluptate quisquam itaque culpa libero repellendus nam animi, fugit pariatur!</p>
@@ -48,7 +48,7 @@ const Newbietech = () => {
                 </div>
 
                 <div className='noob-text'>
-                    <span><FaBook/> : Video</span>
+                    <span><FaBook/> : Article</span>
                     <a href='#' className='noob-title'>This for noob who want to be a builder</a>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
                         Odio possimus atque dolor doloribus at sint dignissimos tempore, totam ducimus deserunt voluptate quisquam itaque culpa libero repellendus nam animi, fugit pariatur!</p>
