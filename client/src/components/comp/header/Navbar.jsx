@@ -60,7 +60,7 @@ const Navbar = () => {
   return (
     <div className="heroes">
       <nav>
-        <h2 className="logoes">Gunpla <span className="red-text">Pedia</span></h2>
+        <h2 className="logoes"><Link to="/"> <span className="white-text">Gunpla</span> <span className="red-text">Pedia</span></Link></h2>
         <ul>
           <li><Link to="/">Home</Link></li>
           <li><Link to="/gunpla">Gunpla</Link></li>

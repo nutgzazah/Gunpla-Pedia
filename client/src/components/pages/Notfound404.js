@@ -18,7 +18,7 @@ export default function Notfound404() {
           We're sorry, the page you requested could not be found. Please go back
           to the homepage!
         </p>
-        <button>GO HOME</button>
+        <button><Link to="/"><span className="white-text">Go Home</span></Link></button>
       </div>
     </div>
   );
