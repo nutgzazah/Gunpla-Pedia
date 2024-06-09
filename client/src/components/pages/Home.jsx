@@ -4,7 +4,7 @@ import Background from '../comp/background/Background'
 import Enugrade from '../comp/enugrade/Enugrade'
 import Services from '../comp/services/Services'
 import Homesearch from '../comp/homesearch/Homesearch'
-// import Background from '../../components/Background/Background'
+// import Background from '../../components/Background/Backgrounds'
 
 
 
