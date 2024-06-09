@@ -1,6 +1,7 @@
 import React from 'react'
 import './Sd.css'
 import LOGO from '../../../../assets/LOGO.png'
+import { Link } from 'react-router-dom';
 
 
 const Sd = () => {
@@ -15,8 +16,8 @@ const Sd = () => {
                   There will be a section teaching techniques for assembling and painting Gunpla. 
                   And users can create a collection of Gunpla that they already own.</p>
                 <div class="btn-box">
-                    <a href='#'>Login</a>
-                    <a href='#'>Signup</a>
+                    <a href='#'><Link to="/login">Login</Link></a>
+                    <a href='#'><Link to="/register">Signup</Link></a>
                 </div>
             </div>
             <div class="home-img">

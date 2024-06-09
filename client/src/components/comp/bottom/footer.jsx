@@ -5,6 +5,7 @@ import { FaFacebookSquare } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
 import LOGO from '../../../assets/LOGO.png'
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -29,10 +30,10 @@ const Footer = () => {
             <div className="footer-col">
               <h4>Useful Links</h4>
               <ul className='ul-foot'>
-                <li><a href="#">My Collection</a></li>
-                <li><a href="#">All Gunpla</a></li>
-                <li><a href="#">A&P Techniques</a></li>
-                <li><a href="#">Wishlist</a></li>
+                <li><a href="#"><Link to="/">Home</Link></a></li>
+                <li><a href="#"><Link to="/gunpla">All Gunpla</Link></a></li>
+                <li><Link to="/techniques">Techniques</Link></li>
+                <li><Link to="/collection">My collection</Link></li>
               </ul>
             </div>
             <div className="footer-col">
