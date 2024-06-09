@@ -25,6 +25,10 @@ nav {
     color: red;
 }
 
+.white-text {
+    color: white;
+}
+
 nav ul li{
     list-style-type: none;
     display: inline-block;
