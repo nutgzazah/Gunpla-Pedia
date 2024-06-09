@@ -3,7 +3,11 @@ import Topcollect from './topcollect/Topcollect'
 import Gsearch from '../../comp/gsearch/Gsearch'
 import Guidegrade from '../../comp/guidegrade/Guidegrade'
 import Product from '../../comp/showgun/Product'
+
+//mockup database need to change to my autual database
 import products from '../../db/data'
+
+//same Card component
 import Card from '../../comp/showcom/Cards';
 
 const Collection = () => {
