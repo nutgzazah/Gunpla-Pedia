@@ -1,67 +1,55 @@
-import React from 'react'
-import './Blogtech.css'
-import Artside1 from './artside1.jpg'
-import B2 from './b2.jpg'
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import './Blogtech.css';
+import { useParams } from 'react-router-dom';
+import { readTech } from '../../../../functions/technique'; // Import the readTech function
 
 const Blogtech = () => {
+  const [technique, setTechnique] = useState(null);
+  const { id } = useParams();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTechnique = async () => {
+      try {
+        const response = await readTech(id); // Replace 'your_technique_id_here' with the actual ID
+        setTechnique(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching technique:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchTechnique();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>; // Display loading message while fetching data
+  }
+
+  if (!technique) {
+    return <div>Error fetching technique data.</div>; // Display error message if fetching fails
+  }
+
   return (
     <div className='blog-wrapper'>
-        <div className='posts clearfix'>
-            <div className='main-posts single'>
-                <h1 className='recently-post-title'>This is the title of post</h1>
-                <img src={B2}/>
-                <div className='posts-article'>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-                        Laudantium asperiores nam neque omnis doloremque quasi voluptate tempore cupiditate 
-                        tempora maxime accusamus distinctio vitae rerum ad, sequi rem! Illo, totam tempora.</p>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-                        Laudantium asperiores nam neque omnis doloremque quasi voluptate tempore cupiditate 
-                        tempora maxime accusamus distinctio vitae rerum ad, sequi rem! Illo, totam tempora.</p>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-                        Laudantium asperiores nam neque omnis doloremque quasi voluptate tempore cupiditate 
-                        tempora maxime accusamus distinctio vitae rerum ad, sequi rem! Illo, totam tempora.</p>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
-                        Laudantium asperiores nam neque omnis doloremque quasi voluptate tempore cupiditate 
-                        tempora maxime accusamus distinctio vitae rerum ad, sequi rem! Illo, totam tempora.</p>
-                </div>
-            </div>
-
-            <div className='sidebar-posts single'> 
-                <div className='section-popular'>
-                    <h1 className='pop-title'>Stay on trend</h1>
-                    <div className='mini clearfix'>
-                        <img src={Artside1}/>
-                        <a href='#' className='title-mini'><h4>We have techniques for noob if you gods</h4></a>
-                    </div>
-                    <div className='mini clearfix'>
-                        <img src={Artside1}/>
-                        <a href='#' className='title-mini'><h4>We have techniques for noob if you gods</h4></a>
-                    </div>
-
-                    <div className='mini clearfix'>
-                        <img src={Artside1}/>
-                        <a href='#' className='title-mini'><h4>We have techniques for noob if you gods</h4></a>
-                    </div>
-
-                    <div className='mini clearfix'>
-                        <img src={Artside1}/>
-                        <a href='#' className='title-mini'><h4>We have techniques for noob if you gods</h4></a>
-                    </div>
-
-                </div>       
-                <div className='section-topics'>
-                    <h1 className='section-title'>All Techniques</h1>
-                    <ul>
-                        <li><a href='#'>Assembly Techniques</a></li>
-                        <li><a href='#'>Painting Techniques</a></li>
-                        <li><a href='#'>Cutline Techniques</a></li>
-                    </ul>
-                </div>
-            
-            </div>
+      <div className='posts clearfix'>
+        <div className='main-posts single'>
+        <Link to="/techniques">{`< Back to All Techniques`}</Link>
+          <h1 className='recently-post-title'>{technique.title}</h1>
+          <img src={`${process.env.REACT_APP_API}/uploads/${technique.file}`}style={{maxWidth: '100%', height: 'auto', maxHeight: '600px'}} alt="Technique Image" />
+          <div className='posts-article'>
+            <p>{technique.content}</p>
+          </div>
         </div>
-    </div>
-  )
-}
 
-export default Blogtech
+        <div className='sidebar-posts single'> 
+          {/* Sidebar content */}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Blogtech;
