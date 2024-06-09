@@ -9,12 +9,31 @@ const post = () => {
     <div>
       <div className='posts clearfix'>
         <div className='main-posts'>
-            <h1 className='recently-post-title'>Recently Techniques</h1>
+            <h1 className='recently-post-title'>All Techniques</h1>
             <div className='post'>
                 <img src= {Test5} className='posts-image'/>
                 <div className='posts-preview'>
                     <h1 className='head-preview'><a href='#'>Yeah bouyyyyy</a></h1>
-                    <FaBook /> : Video
+                    <FaBook /> : Article
+                    &nbsp;
+                    <FaCalendar /> : Mar 11, 2019
+                    <p className='preview-text'>
+                      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                      
+                    </p>
+                    <a href='#' className='btn-posts see-more'>See More</a>
+                </div>
+            </div>
+            <div className='post'>
+                <img src= {Test5} className='posts-image'/>
+                <div className='posts-preview'>
+                    <h1 className='head-preview'><a href='#'>Yeah bouyyyyy</a></h1>
+                    <FaBook /> : Article
                     &nbsp;
                     <FaCalendar /> : Mar 11, 2019
                     <p className='preview-text'>
@@ -28,7 +47,7 @@ const post = () => {
                 <img src= {Test5} className='posts-image'/>
                 <div className='posts-preview'>
                     <h1 className='head-preview'><a href='#'>Yeah bouyyyyy</a></h1>
-                    <FaBook /> : Video
+                    <FaBook /> : Article
                     &nbsp;
                     <FaCalendar /> : Mar 11, 2019
                     <p className='preview-text'>
@@ -42,21 +61,7 @@ const post = () => {
                 <img src= {Test5} className='posts-image'/>
                 <div className='posts-preview'>
                     <h1 className='head-preview'><a href='#'>Yeah bouyyyyy</a></h1>
-                    <FaBook /> : Video
-                    &nbsp;
-                    <FaCalendar /> : Mar 11, 2019
-                    <p className='preview-text'>
-                      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                    </p>
-                    <a href='#' className='btn-posts see-more'>See More</a>
-                </div>
-            </div>
-            <div className='post'>
-                <img src= {Test5} className='posts-image'/>
-                <div className='posts-preview'>
-                    <h1 className='head-preview'><a href='#'>Yeah bouyyyyy</a></h1>
-                    <FaBook /> : Video
+                    <FaBook /> : Article
                     &nbsp;
                     <FaCalendar /> : Mar 11, 2019
                     <p className='preview-text'>
