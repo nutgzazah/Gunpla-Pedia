@@ -105,7 +105,7 @@ function App() {
         } />
 
 
-        <Route path='/techniques/blogID' element={
+        <Route path='/techniques/:id' element={
         <UserRoute>
           <Blogtech/>
         </UserRoute>
