@@ -9,8 +9,11 @@ const FormEditProduct = () => {
     const navigate = useNavigate();
     const [form, setForm] = useState({});
     const [preview, setPreview] = useState(null);
-
-    
+    const [sticker, setSticker] = useState({
+        foil: false,
+        etching: false,
+        water: false
+    });
 
     useEffect(() => {
         loadProductData(id);
@@ -23,6 +26,7 @@ const FormEditProduct = () => {
                 if (res.data.file !== 'noimage.jpg') {
                     setPreview(`${process.env.REACT_APP_API}/uploads/${res.data.file}`);
                 }
+                setSticker(res.data.sticker);
             })
             .catch((err) => console.log(err));
     };
@@ -39,6 +43,11 @@ const FormEditProduct = () => {
             } else {
                 alert('Please select a valid image file');
             }
+        } else if (e.target.type === 'checkbox') {
+            setSticker({
+                ...sticker,
+                [e.target.name]: e.target.checked
+            });
         } else if (e.target.name !== 'ratings') { // Exclude 'ratings' field
             setForm({
                 ...form,
@@ -61,6 +70,7 @@ const FormEditProduct = () => {
         for (const key in form) {
             formWithImageData.append(key, form[key]);
         }
+        formWithImageData.append('sticker', JSON.stringify(sticker));
         update(id, formWithImageData)
             .then(res => {
                 console.log(res.data);

@@ -7,6 +7,11 @@ const FormProduct = () => {
     const [data, setData] = useState([]);
     const [form, setForm] = useState({});
     const [preview, setPreview] = useState(null);
+    const [sticker, setSticker] = useState({
+        foil: false,
+        etching: false,
+        water: false
+    });
 
     useEffect(() => {
         loadData();
@@ -30,6 +35,11 @@ const FormProduct = () => {
             } else {
                 alert('Please select a valid image file');
             }
+        } else if (e.target.type === 'checkbox') {
+            setSticker({
+                ...sticker,
+                [e.target.name]: e.target.checked
+            });
         } else {
             setForm({
                 ...form,
@@ -52,6 +62,7 @@ const FormProduct = () => {
         for (const key in form){
             formWithImageData.append(key,form[key]);
         }
+        formWithImageData.append('sticker', JSON.stringify(sticker));
         create(formWithImageData)
             .then(res => {
                 console.log(res.data);
@@ -117,6 +128,23 @@ const FormProduct = () => {
                 <div className="FormProduct-form-group">
                     <label>Detail:</label>
                     <input type="text" name="detail" onChange={handleChange} />
+                </div>
+                <div className="FormProduct-form-group">
+                    <label>Sticker:</label>
+                    <div>
+                        <label>
+                            <input type="checkbox" name="foil" checked={sticker.foil} onChange={handleChange} />
+                            Foil
+                        </label>
+                        <label>
+                            <input type="checkbox" name="etching" checked={sticker.etching} onChange={handleChange} />
+                            Etching
+                        </label>
+                        <label>
+                            <input type="checkbox" name="water" checked={sticker.water} onChange={handleChange} />
+                            Water
+                        </label>
+                    </div>
                 </div>
                 <div className="FormProduct-form-group">
                     <label>File:</label>
