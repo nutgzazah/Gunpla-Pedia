@@ -77,9 +77,10 @@ const Collection = () => {
       );
     }
 
-    return filteredProducts.map(({ _id, file, name, totalrating, ratings }) => (
+    return filteredProducts.map(({baselink, _id, file, name, totalrating, ratings }) => (
       <Card 
-        key={_id}
+      key={_id}
+        baselink='collection'
         id={_id}
         img={`${process.env.REACT_APP_API}/uploads/${file}`}
         name={name}

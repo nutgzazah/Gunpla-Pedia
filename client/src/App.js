@@ -40,6 +40,7 @@ import Account from './components/pages/user/Account'
 import Techniques from './components/pages/techniques/Techniques'
 import Blogtech from './components/pages/techniques/blogtech/Blogtech'
 import GunplaDetails from './components/pages/user/details/GunplaDetails'
+import Collection_GunplaDetails from './components/pages/collection/Collection_GunplaDetails';
 
 function App() {
   // javascript
@@ -100,6 +101,13 @@ function App() {
             <GunplaDetails />
           </UserRoute>
         } />
+        
+        <Route path="/collection/:id" element={
+          <UserRoute>
+            <Collection_GunplaDetails />
+          </UserRoute>
+        } />
+
 
         <Route path='/techniques/blogID' element={
         <UserRoute>
