@@ -25,3 +25,9 @@
 a.ps-menu-button{
     background: #0D0D34;
 }
+
+.sticky-sidebar {
+    height: 100vh;
+    position: sticky;
+    top: 0;
+  }

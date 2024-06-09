@@ -38,7 +38,7 @@ const SideBar = () => {
         onBreakPoint={setBroken}
         backgroundColor="#0D0D34"
         breakPoint="md"
-        style={{ height: "100%" }}
+        className="sticky-sidebar"
         // backgroundColor="green"
       >
         <div
