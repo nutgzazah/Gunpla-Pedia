@@ -17,10 +17,9 @@ const defaultOptions = {
 const HomePageAdmin = () => {
   return (
     <div className="homepage-admin">
-      <div className="homeadmin-text">
+      <div className="homeadmin-text" style={{marginLeft: '850px'}}>
         <h1><span className="highlight">W</span>elcome</h1>
         <h1><span className="highlight">A</span>dmin</h1>
-        <h4>You can play picture at the left side</h4>
       </div>
       <div className="homepage-admin-pic">
         <Tilt options={defaultOptions} style={{ height: 250, width: 250 }}>
