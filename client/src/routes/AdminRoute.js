@@ -29,7 +29,9 @@ const AdminRoute = ({ children }) => {
   return ok ? (
 
     <div className="app" style={{display : 'flex'}}>
-      <SideBar />
+      <div style={{position: 'sticky',top: 0,height: '100vh', zIndex: 100 }}>
+        <SideBar/>
+      </div>
       <main className="content">
         <div className="content_body">
           <Box m="20px">

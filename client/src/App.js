@@ -42,6 +42,8 @@ import Blogtech from './components/pages/techniques/blogtech/Blogtech'
 import GunplaDetails from './components/pages/user/details/GunplaDetails'
 import Collection_GunplaDetails from './components/pages/collection/Collection_GunplaDetails';
 import FormEditTechnique from './components/FormEditTechnique';
+  import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   // javascript
@@ -60,6 +62,7 @@ function App() {
 
   return (
     <BrowserRouter>
+    
 
     <>
       <CssBaseline />

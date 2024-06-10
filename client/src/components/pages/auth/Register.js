@@ -6,6 +6,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { FaUser } from "react-icons/fa";
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 //function
 import { register } from '../../../functions/auth';
 
@@ -31,16 +33,22 @@ function Register() {
 
     // You may want to add validation here to check if passwords match
     if (formData.password !== formData.passwordConfirmation) {
-      alert("Passwords do not match");
+      // alert("Passwords do not match");
+      toast.error('Passwords do not match.');
       return;
     }
 
     register(formData)
       .then(res => {
         console.log(res);
-        alert(res.data);
-
-        navigate('/login')
+        
+        if (res.data === 'User Already Exists!!') {
+          toast.error(res.data);
+        } else if (res.data === 'Register Success!!') {
+          toast.success(res.data);
+        } else {
+          toast.error("Unexpected response from server");
+        }
       })
       .catch(err => console.log(err));
   };
@@ -86,6 +94,7 @@ function Register() {
             </div>
           </form>
         </div>
+        <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
       </div>
     </ThemeProvider>
   );
