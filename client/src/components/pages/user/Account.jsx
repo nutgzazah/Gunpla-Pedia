@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { IoHeartCircleOutline } from "react-icons/io5";
 import LOGO from '../../../assets/LOGO.png';
 import { getCollection } from '../../../functions/product';
+import { Link } from 'react-router-dom';
 import './Account.css';
 
 const Account = () => {
@@ -40,13 +41,14 @@ const Account = () => {
                 <div className="card-text">
                     <div className="portada"></div>
                     <div className="title-total">
-                        <div className="title"><IoHeartCircleOutline /></div>
+                        <div className="title"><Link to="/collection"><IoHeartCircleOutline /></Link></div>
                         <h2 className="nickname">Your Profile</h2>
                         <div className="desc">This is your profile passport, Please show this card to visit this website.</div>
                         <div className="descr">Role: {role}</div>
                         <div className="descr">Products in Collection: {productCount}</div>
                         <div className="actions">
-                            {/* Add any additional actions/buttons here */}
+                        <button className='btnc1'>Edit name</button>
+                            <input type='text' className='changename' placeholder='Change name here'></input>
                         </div>
                     </div>
                 </div>
