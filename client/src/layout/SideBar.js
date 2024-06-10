@@ -28,7 +28,7 @@ const SideBar = () => {
     <div
       style={{
         display: "flex",
-        height: "100%"
+        height: "100vh",
       }}
     >
       <Sidebar
@@ -42,7 +42,7 @@ const SideBar = () => {
         // backgroundColor="green"
       >
         <div
-          style={{ display: "flex", flexDirection: "column", height: "100%" }}
+          style={{ display: "flex", flexDirection: "column", height: "100%" , }}
         >
           <div style={{ flex: 1, marginBottom: "32px" }}>
             <Menu iconShape="square">

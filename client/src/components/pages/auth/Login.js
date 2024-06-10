@@ -8,6 +8,8 @@ import { FaUser } from "react-icons/fa";
 import { IoIosLock } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './Login.css'; // Assuming you copied your friend's CSS file
 
 const defaultTheme = createTheme();
@@ -21,15 +23,14 @@ function Login() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    const formrgt = {
+    const formData = {
       name: data.get('name'),
       password: data.get('password'),
     };
 
-    login(formrgt)
+    login(formData)
       .then((res) => {
         console.log(res);
-        alert(res.data);
         dispatch(
           loginRedux({
             name: res.data.payload.user.name,
@@ -39,8 +40,12 @@ function Login() {
         );
         localStorage.setItem('token', res.data.token);
         roleRedirects(res.data.payload.user.role);
+        toast.success('Login successful!');
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        toast.error('Incorrect username or password. Please try again.');
+      });
   };
 
   const roleRedirects = (role) => {
@@ -57,36 +62,39 @@ function Login() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <div className="login">
-        <div className="wrapper">
-          <form onSubmit={handleSubmit}>
-            <h1>Login</h1>
-            <div className="input-box">
-              <input type="text" name="name" placeholder="Username" required />
-              <i><FaUser /></i>
-            </div>
-            <div className="input-box">
-              <input
-                type={showPassword ? 'text' : 'password'}
-                name="password"
-                placeholder="Password"
-                required
-              />
-              <i onClick={togglePasswordVisibility} className="password-toggle-icon">
-              {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
-              </i>
-            </div>
-            <div className="remember-forget">
-              <label>
-                <input type="checkbox" /> Remember me
-              </label>
-            </div>
-            <button type="submit" className="btn">Login</button>
-            <div className="register-link">
-              <p>Don't have an account? <Link to="/register"><a href="#">Register</a></Link></p>
-            </div>
-          </form>
+      <div className="app-container">
+        <div className="login">
+          <div className="wrapper">
+            <form onSubmit={handleSubmit}>
+              <h1>Login</h1>
+              <div className="input-box">
+                <input type="text" name="name" placeholder="Username" required />
+                <i><FaUser /></i>
+              </div>
+              <div className="input-box">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  name="password"
+                  placeholder="Password"
+                  required
+                />
+                <i onClick={togglePasswordVisibility} className="password-toggle-icon">
+                {showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+                </i>
+              </div>
+              <div className="remember-forget">
+                <label>
+                  <input type="checkbox" /> Remember me
+                </label>
+              </div>
+              <button type="submit" className="btn">Login</button>
+              <div className="register-link">
+                <p>Don't have an account? <Link to="/register"><a href="#">Register</a></Link></p>
+              </div>
+            </form>
+          </div>
         </div>
+        <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
       </div>
     </ThemeProvider>
   );

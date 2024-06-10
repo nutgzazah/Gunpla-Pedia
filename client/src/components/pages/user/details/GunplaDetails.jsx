@@ -190,13 +190,13 @@ const GunplaDetails = () => {
             <tbody>
               <tr>
                 <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center', backgroundColor: '#fff', color: '#333' }}>
-                  {product.foil ? <IoIosCheckmarkCircle className="checkmark-icon" /> : <MdNotInterested className="not-interested-icon" />}
+                  {product.sticker.foil ? <IoIosCheckmarkCircle className="checkmark-icon" /> : <MdNotInterested className="not-interested-icon" />}
                 </td>
                 <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center', backgroundColor: '#fff', color: '#333' }}>
-                  {product.etching ? <IoIosCheckmarkCircle className="checkmark-icon" /> : <MdNotInterested className="not-interested-icon" />}
+                  {product.sticker.etching ? <IoIosCheckmarkCircle className="checkmark-icon" /> : <MdNotInterested className="not-interested-icon" />}
                 </td>
                 <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center', backgroundColor: '#fff', color: '#333' }}>
-                  {product.water ? <IoIosCheckmarkCircle className="checkmark-icon" /> : <MdNotInterested className="not-interested-icon" />}
+                  {product.sticker.water ? <IoIosCheckmarkCircle className="checkmark-icon" /> : <MdNotInterested className="not-interested-icon" />}
                 </td>
               </tr>
             </tbody>
